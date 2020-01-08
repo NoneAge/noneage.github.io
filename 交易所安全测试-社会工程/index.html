@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>交易所安全测试-社会工程 | 零时科技</title>
+
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <meta name="description" content="0x02社会工程一、概述社会工程学是信息收集技术的延伸和升级，是一种高级的信息利用手段。系统中最大的漏洞永远是人，社会工程学攻击则是一种高效利用这种漏洞的手段，它看似不起眼，也不专业，也没有技术性，但其实是最有效，最直接的攻击手段之一。 面对机器，一样的输入只有一种结果；而面对人，一样的输入却有千万种不同的反馈，根据这些探索出更深层次的信息，正是社会工程学的魅力所在。以下是信息收集List和社会工">
+<meta property="og:type" content="article">
+<meta property="og:title" content="交易所安全测试-社会工程">
+<meta property="og:url" content="https://blog.noneage.com/交易所安全测试-社会工程/index.html">
+<meta property="og:site_name" content="零时科技">
+<meta property="og:description" content="0x02社会工程一、概述社会工程学是信息收集技术的延伸和升级，是一种高级的信息利用手段。系统中最大的漏洞永远是人，社会工程学攻击则是一种高效利用这种漏洞的手段，它看似不起眼，也不专业，也没有技术性，但其实是最有效，最直接的攻击手段之一。 面对机器，一样的输入只有一种结果；而面对人，一样的输入却有千万种不同的反馈，根据这些探索出更深层次的信息，正是社会工程学的魅力所在。以下是信息收集List和社会工">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://blog.noneage.com/交易所安全测试-社会工程/assets/邮件1.png">
+<meta property="og:image" content="https://blog.noneage.com/交易所安全测试-社会工程/assets/邮件2.png">
+<meta property="og:image" content="https://blog.noneage.com/交易所安全测试-社会工程/assets/推特.jpg">
+<meta property="og:image" content="https://blog.noneage.com/交易所安全测试-社会工程/assets/身份1.png">
+<meta property="og:image" content="https://blog.noneage.com/交易所安全测试-社会工程/assets/身份2.png">
+<meta property="og:image" content="https://blog.noneage.com/交易所安全测试-社会工程/assets/鱼叉1.png">
+<meta property="og:image" content="https://blog.noneage.com/交易所安全测试-社会工程/assets/鱼叉2.png">
+<meta property="og:updated_time" content="2020-01-08T09:41:45.046Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="交易所安全测试-社会工程">
+<meta name="twitter:description" content="0x02社会工程一、概述社会工程学是信息收集技术的延伸和升级，是一种高级的信息利用手段。系统中最大的漏洞永远是人，社会工程学攻击则是一种高效利用这种漏洞的手段，它看似不起眼，也不专业，也没有技术性，但其实是最有效，最直接的攻击手段之一。 面对机器，一样的输入只有一种结果；而面对人，一样的输入却有千万种不同的反馈，根据这些探索出更深层次的信息，正是社会工程学的魅力所在。以下是信息收集List和社会工">
+<meta name="twitter:image" content="https://blog.noneage.com/交易所安全测试-社会工程/assets/邮件1.png">
+  
+    <link rel="alternative" href="/atom.xml" title="零时科技" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+    
+  <meta content="{{ title }}" name="description">
+  <meta content="{{ title }}" name="keywords">
+  <meta content="{{ title }}" name="author">
+
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|PT+Sans+Narrow|Source+Sans+Pro:200,300,400,600,700,900&amp;subset=all" rel="stylesheet" type="text/css">
+
+  <!-- Global styles START -->   
+  <link rel="stylesheet" href="/metronic/assets/plugins/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/metronic/assets/plugins/bootstrap/css/bootstrap.min.css">
+  <!-- Global styles END --> 
+   
+  <!-- Page level plugin styles START -->
+  <link rel="stylesheet" href="/metronic/assets/pages/css/animate.css">
+  <link rel="stylesheet" href="/metronic/assets/plugins/owl.carousel/assets/owl.carousel.css">
+  <!-- Page level plugin styles END -->
+
+  <!-- Theme styles START -->
+  <link rel="stylesheet" href="/metronic/assets/pages/css/components.css">
+  <link rel="stylesheet" href="/metronic/assets/pages/css/slider.css">
+  <link rel="stylesheet" href="/metronic/assets/corporate/css/style.css">
+  <link rel="stylesheet" href="/metronic/assets/pages/css/portfolio.css">
+  <link rel="stylesheet" href="/metronic/assets/corporate/css/style-responsive.css">
+  <link rel="stylesheet" href="/metronic/assets/corporate/css/themes/red.css">
+  <link rel="stylesheet" href="/css/theme-styles.css">
+  <!-- Theme styles END -->
+</head>
+</html>
+<body class="corporate">
+  <!-- BEGIN TOP BAR -->
+<div class="pre-header">
+  <div class="container">
+    <div class="row">
+      <!-- BEGIN TOP BAR LEFT PART -->
+      <div class="col-md-6 col-sm-6 col-xs-9 additional-shop-info">
+	<ul class="list-unstyled list-inline">
+	  <li><i class="fa fa-phone"></i><span>150-2922-9543</span></li>
+	  <li><i class="fa fa-envelope-o"></i><span>support@noneage.com</span></li>
+	</ul>
+      </div>
+      <!-- END TOP BAR LEFT PART -->
+      <!-- BEGIN TOP BAR MENU -->
+      <div class="col-md-6 col-sm-6 col-xs-3 additional-nav">
+	<ul class="list-unstyled list-inline pull-right">
+	  <!--<li><a href="/login">Log In</a></li>-->
+	</ul>
+      </div>
+      <!-- END TOP BAR MENU -->
+    </div>
+  </div>        
+</div>
+<!-- END TOP BAR -->
+<!-- BEGIN HEADER -->
+<div class="header">
+  <div class="container">
+    <!--<a class="site-logo" href="/" id="logo">零时科技</a>-->
+
+    <a class="site-logo" href="/">
+      <img width="148" hight="42" src="/metronic/assets/corporate/img/logos/noneage_logo_gray.png" alt="noneage blog">
+    </a>
+
+    <a href="javascript:void(0);" class="mobi-toggler"><i class="fa fa-bars"></i></a>
+
+    <!-- BEGIN NAVIGATION -->
+    <div class="header-navigation pull-right font-transform-inherit">
+      <ul>
+	
+	<li class="">
+	  <a href="/">Home</a>
+	</li>
+	
+	<li class="">
+	  <a href="/archives/">Archives</a>
+	</li>
+	
+	<!-- BEGIN TOP SEARCH -->
+	<li class="menu-search">
+	  <span class="sep"></span>
+	  <i class="fa fa-search search-btn"></i>
+	  <div class="search-box">
+	    <form action="#">
+	      <div class="input-group">
+		<input type="text" placeholder="Search" class="form-control st-default-search-input">
+		<span class="input-group-btn">
+		  <button class="btn btn-primary" type="submit">Search</button>
+		</span>
+	      </div>
+	    </form>
+	  </div> 
+	</li>
+	<!-- END TOP SEARCH -->
+      </ul>
+    </div>
+    <!-- END NAVIGATION -->
+  </div>
+</div>
+<!-- Header END -->
+
+  <div class="container">
+  <ul class="breadcrumb">
+    <li><a href="/">Home</a></li>
+    <li><a href="">Blog</a></li>
+    <li class="active">Post</li>
+  </ul>
+  <section id="main">
+    
+    <h2 itemprop="name">
+      <a class="article-title" href="/交易所安全测试-社会工程/">交易所安全测试-社会工程</a>
+    </h2>
+
+
+    <div class="row">
+<div class="col-md-9 col-sm-9 blog-posts">
+<article id="post-交易所安全测试-社会工程" class="article article-type-post blog-item" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      <ul class="blog-info">
+	<li><i class="fa fa-user"></i> Anonymous</li>
+	<li><i class="fa fa-calendar"></i>
+	  <time datetime="2020-01-08T09:41:20.000Z" itemprop="datePublished">2020/01/08</time>
+
+	</li>
+	<li class="hidden-xs"><i class="fa fa-comments"></i>
+	  <a href="https://blog.noneage.com/交易所安全测试-社会工程/#disqus_thread" class="article-comment-link">Comments</a>
+	</li>
+	<li class="hidden-xs"><i class="fa fa-tags"></i> 
+	  
+
+	</li>
+      </ul>
+      
+
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="0x02社会工程"><a href="#0x02社会工程" class="headerlink" title="0x02社会工程"></a>0x02社会工程</h1><h2 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h2><p>社会工程学是信息收集技术的延伸和升级，是一种高级的信息利用手段。系统中最大的漏洞永远是人，社会工程学攻击则是一种高效利用这种漏洞的手段，它看似不起眼，也不专业，也没有技术性，但其实是最有效，最直接的攻击手段之一。</p>
+<p>面对机器，一样的输入只有一种结果；而面对人，一样的输入却有千万种不同的反馈，根据这些探索出更深层次的信息，正是社会工程学的魅力所在。以下是信息收集List和社会工程学在测试中大放异彩的案例，供大家参考。（更详细的脑图见附录，仍在更新中） </p>
+<h2 id="二、测试列表"><a href="#二、测试列表" class="headerlink" title="二、测试列表"></a>二、测试列表</h2><blockquote>
+<p>社会工程学攻击</p>
+<ul>
+<li><p>身份信息采集</p>
+<ul>
+<li><p>姓名，绰号，性别发现</p>
+</li>
+<li><p>学籍履历发现</p>
+</li>
+<li>曾、现用手机号发现</li>
+</ul>
+</li>
+<li><p>关系网络梳理</p>
+<ul>
+<li><p>工作关系网络梳理</p>
+</li>
+<li><p>生活关系网络梳理</p>
+</li>
+</ul>
+</li>
+<li><p>社交信息发现</p>
+<ul>
+<li><p>朋友圈，QQ空间等遗留信息发现</p>
+</li>
+<li><p>其他交友APP信息发现</p>
+</li>
+</ul>
+</li>
+<li><p>水坑攻击</p>
+</li>
+<li><p>钓鱼攻击</p>
+<ul>
+<li><p>邮件钓鱼</p>
+</li>
+<li><p>网页钓鱼</p>
+</li>
+</ul>
+</li>
+<li><p>口令猜解  </p>
+</li>
+</ul>
+</blockquote>
+<h2 id="三、案例分析"><a href="#三、案例分析" class="headerlink" title="三、案例分析"></a>三、案例分析</h2><p>就像那个举世闻名的大黑客——凯文·米特尼克至今仍存在争议，社会工程学作为他的主要武器之一，也在承受着人们最大的质疑。人们常言社会工程学不过是“骗术一类”的手段，不足以称之为一种安全技术。诚然，社会工程学不是通常以计算机网络技术为主的安全工作者们所常用的技术，亦非每个安全工作者都有所涉猎，但“ 不管黑猫白猫，能捉老鼠的就是好猫 ”，对于不择手段的黑客而言，能够达成目的的手段，才是最好的手段。 </p>
+<p>系统里最大的漏洞永远是人，堡垒往往最先从内部攻破。以下几个案例就将揭示，通过利用人性而实施攻击的社会工程学技术到底会发挥怎样的威力。</p>
+<h3 id="钓鱼攻击"><a href="#钓鱼攻击" class="headerlink" title="钓鱼攻击"></a>钓鱼攻击</h3><h4 id="邮件钓鱼"><a href="#邮件钓鱼" class="headerlink" title="邮件钓鱼"></a>邮件钓鱼</h4><p>安全人员在对一家交易所进行测试时，最容易接触到的人就是客服人员，所以负责对外交流的客服也往往成为社会工程学攻击的首要对象。</p>
+<p>零时科技安全团队研究员曾对某家交易所进行安全测试，在基础信息收集阶段过后，以及简单的漏洞测试后，发现该交易所的K线存在一个TradingView 的DOM XSS，将漏洞与钓鱼手段相结合对交易所的客服人员展开了社会工程学攻击。由于DOM XSS的payload中的域名与交易所域名相同，对一些不具备高安全意识的客服人员，很容易进入布下的陷阱之中。</p>
+<p>下图为零时科技安全团队构造的钓鱼邮件，发给交易所客服人员：</p>
+<p><img src="./assets/邮件1.png" alt="钓鱼邮件"></p>
+<p>当客服人员打开邮件并点击邮件中的链接时，攻击者即可获取客服人员的登录会话认证，成功控制客服人员账号。</p>
+<p><img src="./assets/邮件2.png" alt="获取登录会话认证"></p>
+<h4 id="网站钓鱼"><a href="#网站钓鱼" class="headerlink" title="网站钓鱼"></a>网站钓鱼</h4><p>在社工的领域里，针对于人的攻击中，最重要的两个点就是信任和需求。</p>
+<p>在一次某厂商开发人员授权的测试中，零时安全团队测试人员声称发现了某网址为推特镜像，且在国内也可访问，内容实时更新，并以话术诱导该人员点击进事先准备好的钓鱼网站并尝试性的输入了推特账户及密码。</p>
+<p>下图为该开发人员推特账号与密码。</p>
+<p><img src="./assets/推特.jpg" alt=""></p>
+<h3 id="身份信息采集"><a href="#身份信息采集" class="headerlink" title="身份信息采集"></a>身份信息采集</h3><p>将工作与生活分开，不使其产生交集已经成为当下甚是流行的一种趋势，如，区分开工作与生活各自领域使用的手机，微信，QQ等。这样的趋势看似是职场人工作压力大，切换环境逃避压力的大势所趋，但也不无安全考虑。</p>
+<p>零时安全团队在授权测试某家交易所时，找到了该公司相关的某贴吧ID（后经核实，为该公司某管理人员），然后以此ID为基础继续摸索，成功找到了该人员的QQ，手机号和另一私人用ID。因该人员的社交方式并未区分工作与生活使用，根据该管理的手机与QQ号，找到了其他曾注册的论坛ID等信息，并对该管理人员进行心理侧写，猜解出密码为姓名拼音首字母+出生年月日+字符”.“。为后续直接接触后实施的社会工程学攻击手段提供了大量便利。（以下是部分信息）</p>
+<p>下图为该人员具体信息。</p>
+<p><img src="./assets/身份1.png" alt="中年"></p>
+<p>下图是攻击中获取联系方式时记录。</p>
+<p><img src="./assets/身份2.png" alt=""></p>
+<h3 id="鱼叉攻击"><a href="#鱼叉攻击" class="headerlink" title="鱼叉攻击"></a>鱼叉攻击</h3><p>某交易平台于2019年3月被黑客团队利用鱼叉攻击的手段成功入侵。由于某客服人员打开了恶意用户在电报群中投放的捆绑后门的安装程序，随后攻击者获取到了主机权限，通过内网渗透实施入侵并盗取了私钥。</p>
+<p>下图为恶意安装程序的安全检测，成功识别为恶意程序：</p>
+<p><img src="./assets/鱼叉1.png" alt="C&amp;C地址"></p>
+<p>此攻击团队通过搭建真实网站并运营，减少受害者的质疑，下图为C&amp;C服务器所搭建的钓鱼网站：</p>
+<p><img src="./assets/鱼叉2.png" alt=""></p>
+<hr>
+<p>目前对于钓鱼攻击，鱼叉攻击等社会工程学攻击并没有什么特效的手段。加强人员安全意识建设，不盲目的打开陌生的URL、文档以及文件，对基本的漏洞有简单的认识来规避可能存在的风险。</p>
+<hr>
+<p><strong>注：以上所有测试已经过相关交易所授权，请勿非法测试。</strong></p>
+<p><strong>以上就是本期文章的全部内容。</strong></p>
+<p><strong>社会工程学是一种针对于人的，高效利用信息的攻击方式。对于测试方来说，它是常能取胜，意料之外的一支“奇兵”；对于交易所方来说，做好工作人员安全意识的培养就是能防奇兵的那道“城墙”。</strong></p>
+<p><strong>下一篇文章将会讲述有关于逻辑漏洞的内容，敬请关注。</strong></p>
+
+      
+    </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/交易所安全测试-业务逻辑/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          交易所安全测试-业务逻辑
+        
+      </div>
+    </a>
+  
+  
+    <a href="/交易所安全测试-信息收集/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">交易所安全测试--信息收集</div>
+    </a>
+  
+</nav>
+
+  
+  <br>
+</article>
+
+
+
+
+</div>
+<div class="col-md-3 col-sm-3 blog-sidebar">
+  <!-- CATEGORIES START -->
+<h2 class="no-top-space">Categories</h2>
+
+<div class="widget-wrap">
+  <div class="widget">
+    <ul class="nav sidebar-categories margin-bottom-40">
+      
+	<li>
+	  <a href="/categories/Contract/">Contract (7)</a>
+	</li>
+      
+	<li>
+	  <a href="/categories/Contract/EOS/">EOS (6)</a>
+	</li>
+      
+	<li>
+	  <a href="/categories/Contract/Ether/">Ether (1)</a>
+	</li>
+      
+	<li>
+	  <a href="/categories/PoW/">PoW (1)</a>
+	</li>
+      
+	<li>
+	  <a href="/categories/Linux/">Linux (1)</a>
+	</li>
+      
+	<li>
+	  <a href="/categories/Contract/Ether/overflow/">overflow (1)</a>
+	</li>
+      
+	<li>
+	  <a href="/categories/Contract/EOS/Random/">Random (2)</a>
+	</li>
+      
+	<li>
+	  <a href="/categories/PoW/双花/">双花 (1)</a>
+	</li>
+      
+	<li>
+	  <a href="/categories/PoW/双花/51-攻击/">51%攻击 (1)</a>
+	</li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<!-- CATEGORIES END -->
+
+<!-- BEGIN BLOG TAGS -->
+<div class="blog-tags margin-bottom-20">
+  <h2>Tags</h2>
+  
+  <div class="widget-wrap">
+    <div class="widget">
+      
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/51-攻击/"><i class="fa fa-tags"></i>51%攻击</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/EOS/"><i class="fa fa-tags"></i>EOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/EOS-dApp-漏洞盘点/"><i class="fa fa-tags"></i>EOS dApp 漏洞盘点</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/以太坊/"><i class="fa fa-tags"></i>以太坊</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/传统安全/"><i class="fa fa-tags"></i>传统安全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/共识安全/"><i class="fa fa-tags"></i>共识安全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链/"><i class="fa fa-tags"></i>区块链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链安全/"><i class="fa fa-tags"></i>区块链安全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/双花攻击/"><i class="fa fa-tags"></i>双花攻击</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数字资产追踪/"><i class="fa fa-tags"></i>数字资产追踪</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/整数溢出/"><i class="fa fa-tags"></i>整数溢出</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/智能合约安全/"><i class="fa fa-tags"></i>智能合约安全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/比特币/"><i class="fa fa-tags"></i>比特币</a></li></ul>
+    </div>
+  </div>
+
+
+</div>
+<!-- END BLOG TAGS -->
+
+
+<!-- BEGIN FEATURED POSTS -->                            
+<h2>Featured Posts</h2>
+<div class="recent-news margin-bottom-10">
+  
+    
+      <div class="row margin-bottom-10">
+	<div class="col-md-4">
+	  <img src="https://blog.noneage.com/EOS-dApp-%E6%BC%8F%E6%B4%9E%E7%9B%98%E7%82%B9%E5%88%86%E6%9E%90-EOSBet-%E5%81%87%E5%85%85%E5%80%BC%E6%BC%8F%E6%B4%9E1/asset/eosbet.jpg" class="img-responsive ">
+	</div>
+	<div class="col-md-8">
+	  <h3><a href="https://blog.noneage.com/EOS-dApp-漏洞盘点分析-EOSBet-假充值漏洞1/">EOS dApp 漏洞盘点分析-EOSBet 假充值漏洞1</a></h3>
+	</div>                        
+      </div>
+    
+  
+    
+      <div class="row margin-bottom-10">
+	<div class="col-md-4">
+	  <img src="https://blog.noneage.com/EOS-dApp-%E6%BC%8F%E6%B4%9E%E7%9B%98%E7%82%B9-LuckyGo-inline-action-%E4%BA%A4%E6%98%93%E5%9B%9E%E6%BB%9A%E6%94%BB%E5%87%BB/asset/rollback.jpeg" class="img-responsive ">
+	</div>
+	<div class="col-md-8">
+	  <h3><a href="https://blog.noneage.com/EOS-dApp-漏洞盘点-LuckyGo-inline-action-交易回滚攻击/">EOS dApp 漏洞盘点- LuckyGo inline action 交易回滚攻击</a></h3>
+	</div>                        
+      </div>
+    
+  
+    
+      <div class="row margin-bottom-10">
+	<div class="col-md-4">
+	  <img src="https://blog.noneage.com/Agora%E6%9A%97%E7%BD%91BTC%E5%85%B3%E8%81%94%E5%9C%B0%E5%9D%80%E4%BA%A4%E6%98%93%E5%BC%82%E5%B8%B8%E6%BA%AF%E6%BA%90%E5%88%86%E6%9E%90/assets/agora.jpg" class="img-responsive ">
+	</div>
+	<div class="col-md-8">
+	  <h3><a href="https://blog.noneage.com/Agora暗网BTC关联地址交易异常溯源分析/">Agora暗网BTC关联地址交易异常溯源分析</a></h3>
+	</div>                        
+      </div>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <div class="row margin-bottom-10">
+	<div class="col-md-4">
+	  <img src="https://blog.noneage.com/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E6%BC%8F%E6%B4%9E%E5%AE%9E%E6%88%98%E8%AF%A6%E8%A7%A3%EF%BC%9A%E6%95%B4%E6%95%B0%E6%BA%A2%E5%87%BA%E6%94%BB%E5%87%BB/blog.png" class="img-responsive ">
+	</div>
+	<div class="col-md-8">
+	  <h3><a href="https://blog.noneage.com/以太坊智能合约漏洞实战详解：整数溢出攻击/">以太坊智能合约漏洞实战详解：整数溢出攻击</a></h3>
+	</div>                        
+      </div>
+    
+  
+    
+      <div class="row margin-bottom-10">
+	<div class="col-md-4">
+	  <img src="https://blog.noneage.com/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%85%B1%E8%AF%86%E5%AE%89%E5%85%A8%E2%80%9451-%E6%94%BB%E5%87%BB%E6%B5%85%E6%9E%90/thub.jpg" class="img-responsive ">
+	</div>
+	<div class="col-md-8">
+	  <h3><a href="https://blog.noneage.com/区块链共识安全—51-攻击浅析/">区块链共识安全：51% 攻击浅析</a></h3>
+	</div>                        
+      </div>
+    
+  
+    
+      <div class="row margin-bottom-10">
+	<div class="col-md-4">
+	  <img src="https://blog.noneage.com/EOS-dApp-%E6%BC%8F%E6%B4%9E%E7%9B%98%E7%82%B9%E5%88%86%E6%9E%90-EOSBet-%E5%81%87%E5%85%85%E5%80%BC%E6%BC%8F%E6%B4%9E1/asset/eosbet.jpg" class="img-responsive ">
+	</div>
+	<div class="col-md-8">
+	  <h3><a href="https://blog.noneage.com/EOS-dApp-漏洞盘点分析-EOSBet-假充值漏洞2/">EOS dApp 漏洞盘点分析-EOSBet 假充值漏洞2</a></h3>
+	</div>                        
+      </div>
+    
+  
+    
+      <div class="row margin-bottom-10">
+	<div class="col-md-4">
+	  <img src="https://blog.noneage.com/apt-apt-get-%E8%BF%9C%E7%A8%8B%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E6%B5%85%E6%9E%90-CVE-2019-3462/thub.jpg" class="img-responsive ">
+	</div>
+	<div class="col-md-8">
+	  <h3><a href="https://blog.noneage.com/apt-apt-get-远程代码执行漏洞浅析-CVE-2019-3462/">apt/apt-get 远程代码执行漏洞浅析(CVE-2019-3462)</a></h3>
+	</div>                        
+      </div>
+    
+  
+    
+      <div class="row margin-bottom-10">
+	<div class="col-md-4">
+	  <img src="https://blog.noneage.com/EOS-dApp-%E6%BC%8F%E6%B4%9E%E7%9B%98%E7%82%B9-EOSDice%E5%BC%B1%E9%9A%8F%E6%9C%BA%E6%95%B0%E6%BC%8F%E6%B4%9E1/thub.jpg" class="img-responsive ">
+	</div>
+	<div class="col-md-8">
+	  <h3><a href="https://blog.noneage.com/EOS-dApp-漏洞盘点-EOSDice弱随机数漏洞1/">EOS dApp 漏洞盘点-EOSDice弱随机数漏洞1</a></h3>
+	</div>                        
+      </div>
+    
+  
+    
+      <div class="row margin-bottom-10">
+	<div class="col-md-4">
+	  <img src="https://blog.noneage.com/EOS-dApp-%E6%BC%8F%E6%B4%9E%E7%9B%98%E7%82%B9-EOSDice%E5%BC%B1%E9%9A%8F%E6%9C%BA%E6%95%B0%E6%BC%8F%E6%B4%9E1/thub.jpg" class="img-responsive ">
+	</div>
+	<div class="col-md-8">
+	  <h3><a href="https://blog.noneage.com/EOS-dApp-漏洞盘点-EOSDice弱随机数漏洞2/">EOS dApp 漏洞盘点-EOSDice弱随机数漏洞2</a></h3>
+	</div>                        
+      </div>
+    
+  
+    
+  
+    
+  
+</div>
+<!-- END FEATURED POSTS -->                            
+
+</div>
+</div>
+
+  </section>
+</div>
+
+    <!-- BEGIN PRE-FOOTER -->
+    <div class="pre-footer">
+      <div class="container">
+        <div class="row">
+          <!-- BEGIN BOTTOM ABOUT BLOCK -->
+          <div class="col-md-4 col-sm-6 pre-footer-col">
+            <h2>About Us</h2>
+            <p>深圳零时科技有限公司，专注于区块链安全领域。 <br><br> 公司团队由从事安全技术研究和安全服务多年且经验丰富的高级网络安全专家组成，为客户提供专业的安全服务和安全解决方案。</p>
+          </div>
+          <!-- END BOTTOM ABOUT BLOCK -->
+
+          <!-- BEGIN BOTTOM CONTACTS -->
+          <div class="col-md-4 col-sm-6 pre-footer-col">
+            <h2>Contact</h2>
+            <address class="margin-bottom-40">
+              深圳市深南大道佳嘉豪商务大厦18A<br>
+              西安市丈八一路汇鑫国际IBC-A座906<br>
+              <br>
+              Phone: 150-2922-9543<br>
+              Email: <a href="mailto:support@noneage.com">support@noneage.com</a><br>
+            </address>
+          </div>
+          <!-- END BOTTOM CONTACTS -->
+
+	
+          <!-- BEGIN TWITTER BLOCK --> 
+	  <div class="col-md-2 col-sm-6 pre-footer-col">
+                <img src="/metronic/assets/corporate/img/wechat.png" width="160px" hight="160px">
+		<br>
+                <center>微信公账号</center>
+          </div>
+          <div class="col-md-2 col-sm-6 pre-footer-col">
+                <img src="/metronic/assets/corporate/img/zsxq.jpg" width="160px" hight="160px">
+		<br>
+                <center>知识星球</center>
+          </div>
+          <!--div class="col-md-4 col-sm-6 pre-footer-col">
+
+	  <a data-tweet-limit="1" class="twitter-timeline"
+	  href="https://twitter.com/computerlab_"
+	  data-widget-id="678830341331820544">Tweets by @computerlab_</a>
+
+	  <script>!function(d,s,id){var
+	  js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+          </div-->
+          <!-- END TWITTER BLOCK -->
+	
+        </div>
+      </div>
+    </div>
+    <!-- END PRE-FOOTER -->
+
+    <!-- BEGIN FOOTER -->
+    <div class="footer">
+      <div class="container">
+        <div class="row">
+          <!-- BEGIN COPYRIGHT -->
+          <div class="col-md-6 col-sm-6 padding-top-10">
+                  &copy; 2020 零时科技<br>
+ <a href="javascript:;">Privacy Policy</a> | <a href="javascript:;">Terms of Service</a>
+          </div>
+          <!-- END COPYRIGHT -->
+	  <!-- BEGIN SOCIAL -->
+<div class="col-md-6 col-sm-6">
+  <ul class="social-footer list-unstyled list-inline pull-right">
+    
+      <li><a href="https://github.com/noneage"><i class="fa fa-github"></i></a></li>
+    
+      <li><a href="https://twitter.com/NoneAgeOffical"><i class="fa fa-twitter"></i></a></li>
+    
+      <li><a href="/atom.xml"><i class="fa fa-rss"></i></a></li>
+    
+  </ul>  
+</div>
+<!-- END SOCIAL -->
+
+        </div>
+      </div>
+    </div>
+    <!-- END FOOTER -->
+
+  <!-- BEGIN CORE PLUGINS (REQUIRED FOR ALL PAGES) -->
+<!--[if lt IE 9]>
+<script src="/metronic/assets/plugins/respond.min.js"></script>
+<![endif]--> 
+<script src="/metronic/assets/plugins/jquery.min.js"></script>
+<script src="/metronic/assets/plugins/jquery-migrate.min.js"></script>
+<script src="/metronic/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="/metronic/assets/corporate/scripts/back-to-top.js"></script>
+<script src="/metronic/assets/plugins/owl.carousel/owl.carousel.min.js"></script>
+<script src="/metronic/assets/corporate/scripts/layout.js"></script>
+<script src="/js/wow.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        Layout.init();    
+        Layout.initOWL();
+        Layout.initTwitter();
+        Layout.initFixHeaderWithPreHeader(); /* Switch On Header Fixing (only if you have pre-header) */
+        Layout.initNavScrolling(); 
+	new WOW().init();
+    });
+</script>
+<!-- END CORE PLUGINS -->
+
+<!-- BEGIN PAGE-SPECIFIC PLUGINS --> 
+
+
+
+
+
+
+
+<!-- END PAGE-SPECIFIC PLUGINS --> 
+
+<!-- BEGIN INTEGRATIONS -->
+
+
+
+
+
+<!-- END INTEGRATIONS -->
+
+</body>
+</html>

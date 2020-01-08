@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>交易所安全测试--信息收集 | 零时科技</title>
+
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <meta name="description" content="交易所安全测试–信息收集一、概述　　对于所有安全相关的测试来说，信息收集都是非常重要且必要的第一步，有时一次非常全面完善的信息收集甚至会占到一次渗透测试总工程量的的70%到80%，能为后续的工作节省大量精力，提供便利，数字货币交易所的安全测试也是一样，第一步的信息收集至关重要。本文将展示零时科技安全团队的多年攻防经验，以及大量交易所客户真实案例，虽然见微知著，但是通过案例就可以了解到，在安全测试过">
+<meta property="og:type" content="article">
+<meta property="og:title" content="交易所安全测试--信息收集">
+<meta property="og:url" content="https://blog.noneage.com/交易所安全测试-信息收集/index.html">
+<meta property="og:site_name" content="零时科技">
+<meta property="og:description" content="交易所安全测试–信息收集一、概述　　对于所有安全相关的测试来说，信息收集都是非常重要且必要的第一步，有时一次非常全面完善的信息收集甚至会占到一次渗透测试总工程量的的70%到80%，能为后续的工作节省大量精力，提供便利，数字货币交易所的安全测试也是一样，第一步的信息收集至关重要。本文将展示零时科技安全团队的多年攻防经验，以及大量交易所客户真实案例，虽然见微知著，但是通过案例就可以了解到，在安全测试过">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://blog.noneage.com/交易所安全测试-信息收集/assets/cdn.png">
+<meta property="og:image" content="https://blog.noneage.com/交易所安全测试-信息收集/assets/子域名.png">
+<meta property="og:image" content="https://blog.noneage.com/交易所安全测试-信息收集/assets/api泄露.png">
+<meta property="og:image" content="https://blog.noneage.com/交易所安全测试-信息收集/assets/信息收集.png">
+<meta property="og:image" content="https://blog.noneage.com/交易所安全测试-信息收集/assets/D1.png">
+<meta property="og:image" content="https://blog.noneage.com/交易所安全测试-信息收集/assets/D2.png">
+<meta property="og:image" content="https://blog.noneage.com/交易所安全测试-信息收集/assets/源码.png">
+<meta property="og:image" content="https://blog.noneage.com/交易所安全测试-信息收集/assets/h1.png">
+<meta property="og:image" content="https://blog.noneage.com/交易所安全测试-信息收集/assets/h2.png">
+<meta property="og:updated_time" content="2020-01-08T09:36:59.368Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="交易所安全测试--信息收集">
+<meta name="twitter:description" content="交易所安全测试–信息收集一、概述　　对于所有安全相关的测试来说，信息收集都是非常重要且必要的第一步，有时一次非常全面完善的信息收集甚至会占到一次渗透测试总工程量的的70%到80%，能为后续的工作节省大量精力，提供便利，数字货币交易所的安全测试也是一样，第一步的信息收集至关重要。本文将展示零时科技安全团队的多年攻防经验，以及大量交易所客户真实案例，虽然见微知著，但是通过案例就可以了解到，在安全测试过">
+<meta name="twitter:image" content="https://blog.noneage.com/交易所安全测试-信息收集/assets/cdn.png">
+  
+    <link rel="alternative" href="/atom.xml" title="零时科技" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+    
+  <meta content="{{ title }}" name="description">
+  <meta content="{{ title }}" name="keywords">
+  <meta content="{{ title }}" name="author">
+
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|PT+Sans+Narrow|Source+Sans+Pro:200,300,400,600,700,900&amp;subset=all" rel="stylesheet" type="text/css">
+
+  <!-- Global styles START -->   
+  <link rel="stylesheet" href="/metronic/assets/plugins/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/metronic/assets/plugins/bootstrap/css/bootstrap.min.css">
+  <!-- Global styles END --> 
+   
+  <!-- Page level plugin styles START -->
+  <link rel="stylesheet" href="/metronic/assets/pages/css/animate.css">
+  <link rel="stylesheet" href="/metronic/assets/plugins/owl.carousel/assets/owl.carousel.css">
+  <!-- Page level plugin styles END -->
+
+  <!-- Theme styles START -->
+  <link rel="stylesheet" href="/metronic/assets/pages/css/components.css">
+  <link rel="stylesheet" href="/metronic/assets/pages/css/slider.css">
+  <link rel="stylesheet" href="/metronic/assets/corporate/css/style.css">
+  <link rel="stylesheet" href="/metronic/assets/pages/css/portfolio.css">
+  <link rel="stylesheet" href="/metronic/assets/corporate/css/style-responsive.css">
+  <link rel="stylesheet" href="/metronic/assets/corporate/css/themes/red.css">
+  <link rel="stylesheet" href="/css/theme-styles.css">
+  <!-- Theme styles END -->
+</head>
+</html>
+<body class="corporate">
+  <!-- BEGIN TOP BAR -->
+<div class="pre-header">
+  <div class="container">
+    <div class="row">
+      <!-- BEGIN TOP BAR LEFT PART -->
+      <div class="col-md-6 col-sm-6 col-xs-9 additional-shop-info">
+	<ul class="list-unstyled list-inline">
+	  <li><i class="fa fa-phone"></i><span>150-2922-9543</span></li>
+	  <li><i class="fa fa-envelope-o"></i><span>support@noneage.com</span></li>
+	</ul>
+      </div>
+      <!-- END TOP BAR LEFT PART -->
+      <!-- BEGIN TOP BAR MENU -->
+      <div class="col-md-6 col-sm-6 col-xs-3 additional-nav">
+	<ul class="list-unstyled list-inline pull-right">
+	  <!--<li><a href="/login">Log In</a></li>-->
+	</ul>
+      </div>
+      <!-- END TOP BAR MENU -->
+    </div>
+  </div>        
+</div>
+<!-- END TOP BAR -->
+<!-- BEGIN HEADER -->
+<div class="header">
+  <div class="container">
+    <!--<a class="site-logo" href="/" id="logo">零时科技</a>-->
+
+    <a class="site-logo" href="/">
+      <img width="148" hight="42" src="/metronic/assets/corporate/img/logos/noneage_logo_gray.png" alt="noneage blog">
+    </a>
+
+    <a href="javascript:void(0);" class="mobi-toggler"><i class="fa fa-bars"></i></a>
+
+    <!-- BEGIN NAVIGATION -->
+    <div class="header-navigation pull-right font-transform-inherit">
+      <ul>
+	
+	<li class="">
+	  <a href="/">Home</a>
+	</li>
+	
+	<li class="">
+	  <a href="/archives/">Archives</a>
+	</li>
+	
+	<!-- BEGIN TOP SEARCH -->
+	<li class="menu-search">
+	  <span class="sep"></span>
+	  <i class="fa fa-search search-btn"></i>
+	  <div class="search-box">
+	    <form action="#">
+	      <div class="input-group">
+		<input type="text" placeholder="Search" class="form-control st-default-search-input">
+		<span class="input-group-btn">
+		  <button class="btn btn-primary" type="submit">Search</button>
+		</span>
+	      </div>
+	    </form>
+	  </div> 
+	</li>
+	<!-- END TOP SEARCH -->
+      </ul>
+    </div>
+    <!-- END NAVIGATION -->
+  </div>
+</div>
+<!-- Header END -->
+
+  <div class="container">
+  <ul class="breadcrumb">
+    <li><a href="/">Home</a></li>
+    <li><a href="">Blog</a></li>
+    <li class="active">Post</li>
+  </ul>
+  <section id="main">
+    
+    <h2 itemprop="name">
+      <a class="article-title" href="/交易所安全测试-信息收集/">交易所安全测试--信息收集</a>
+    </h2>
+
+
+    <div class="row">
+<div class="col-md-9 col-sm-9 blog-posts">
+<article id="post-交易所安全测试-信息收集" class="article article-type-post blog-item" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      <ul class="blog-info">
+	<li><i class="fa fa-user"></i> Anonymous</li>
+	<li><i class="fa fa-calendar"></i>
+	  <time datetime="2020-01-08T09:36:22.000Z" itemprop="datePublished">2020/01/08</time>
+
+	</li>
+	<li class="hidden-xs"><i class="fa fa-comments"></i>
+	  <a href="https://blog.noneage.com/交易所安全测试-信息收集/#disqus_thread" class="article-comment-link">Comments</a>
+	</li>
+	<li class="hidden-xs"><i class="fa fa-tags"></i> 
+	  
+
+	</li>
+      </ul>
+      
+
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="交易所安全测试–信息收集"><a href="#交易所安全测试–信息收集" class="headerlink" title="交易所安全测试–信息收集"></a>交易所安全测试–信息收集</h1><h2 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h2><p>　　对于所有安全相关的测试来说，信息收集都是非常重要且必要的第一步，有时一次非常全面完善的信息收集甚至会占到一次渗透测试总工程量的的70%到80%，能为后续的工作节省大量精力，提供便利，数字货币交易所的安全测试也是一样，第一步的信息收集至关重要。本文将展示零时科技安全团队的多年攻防经验，以及大量交易所客户真实案例，虽然见微知著，但是通过案例就可以了解到，在安全测试过程中数字货币交易所有什么样的信息可供黑客收集利用以及导致怎样的危害。其中几点将会被单独加以说明，以供参考。</p>
+<h2 id="二、测试列表"><a href="#二、测试列表" class="headerlink" title="二、测试列表"></a>二、测试列表</h2><blockquote>
+<p>信息收集列表</p>
+<ul>
+<li>域名 Whois及备案信息采集</li>
+<li>服务器真实 IP 发现</li>
+<li>服务器指纹识别</li>
+<li>目标子域探测</li>
+<li>邮件服务探测</li>
+<li>证书信息采集</li>
+<li>Web服务组件指纹采集</li>
+<li>Web网站目录探测</li>
+<li>API接口信息泄露</li>
+<li>端口服务组件指纹采集</li>
+<li>旁服信息采集</li>
+<li>C 段服务采集</li>
+<li>GitHub/SVN源码泄露发现</li>
+<li>DNS记录分析搜索引擎公开信息采集（google，shodan，zoomeye）</li>
+<li>企业信息采集（员工信息，组织框架，企业法人，企业综合信息）</li>
+<li>敏感文件发现</li>
+</ul>
+</blockquote>
+<h2 id="三、案例分析"><a href="#三、案例分析" class="headerlink" title="三、案例分析"></a>三、案例分析</h2><p>　　关于信息收集，众说纷纭，甚至也有言论称信息收集是测试中用处最不明显的一环，诚然并不是所有信息都是有效且可被利用的，但其中一些确实可以在山穷水复的时候柳暗花明，以致再次找到新的突破口。</p>
+<p>　　以下几个案例就将揭示，在测试中，信息收集这一阶段为整个测试过程贡献了怎样的力量。</p>
+<h3 id="服务器真实-IP-发现"><a href="#服务器真实-IP-发现" class="headerlink" title="服务器真实 IP 发现"></a>服务器真实 IP 发现</h3><p>　　开启CDN后的网站，会根据用户所在地的不同访问CDN的节点服务器，并不直接访问源服务器，由于CDN节点的阻挡防护，无论服务器是渗透还是DD0S攻击，攻击的目标都将是CDN节点，可以更好的保护员服务器的安全。  </p>
+<p>　　在黑客攻击过程中找到目标真实IP至关重要，攻击者可通过多种方法绕过防护找到服务器真实IP地址。最常见的通过查询历史DNS记录获取服务器真实IP。通过真实IP直接绕过防护，进行端口扫描，服务指纹识别，绕过常规web安全防护，扩大攻击面。</p>
+<p>  图下为通过DNS记录获取某交易所真实IP：</p>
+<p><img src="./assets/cdn.png" alt="真实 IP 发现"></p>
+<h3 id="目标子域探测"><a href="#目标子域探测" class="headerlink" title="目标子域探测"></a>目标子域探测</h3><p>　　子域名探测是查找一个或多个域的子域名的过程。这是信息搜集阶段的重要组成部分。子域名探测可以帮我们发现渗透测试中更多的服务，这将增加发现漏洞的可能性，查找一些用户上较少，被人遗忘的子域名，其上运行的应用程序可能会使我们发现关键漏洞。</p>
+<p>　　子域名探测的方法有很多，例如：利用DNS域传送漏洞，查看HTTPS证书和枚举挖掘等等。在针对交易所后台发现上，经过大量测试后发现，一部分交易所后台会隐藏在其二级域名下来保证安全。</p>
+<p>图下为某交易所后台登录界面，其子域名为 admin的MD5：</p>
+<p><img src="./assets/子域名.png" alt="子域探测"></p>
+<p>　　将后台与主站分离某种意义上，增加了管理后台被攻击者发现的成本，但并不能规避因为自身缺陷造成的安全问题。所以，在保证隐蔽性下的前提下，管理后台可以采用白名单IP访问限制，强密码以及手机令牌等更加安全的登陆方式。</p>
+<h3 id="API接口信息泄露"><a href="#API接口信息泄露" class="headerlink" title="API接口信息泄露"></a>API接口信息泄露</h3><p>　　API的使用频率越来越高，占比也越来越大，所谓“能力越大责任越大”，安全的API使用固然可以带来极大的便利，但是API的安全一旦出了问题，带来的后果将是毁灭性的。在测试的第一步，信息收集的领域，关于API我们首先能接触到的，就是API具体使用参数等详情的信息保密状态了。</p>
+<p>　　零时科技安全团队对某交易所进行安全测试时，发现该交易所的代码是外包公司所编写。在而后的信息收集过程中，零时科技安全团队在google上找到了外包公司编写代码时留下的，托管在某团队协作平台上的API文档。文档中详细地说明了使用API时用到的各种参数及其类型和具体的含义，用处，并且在样例中遗留下了一些测试时使用的具体参数，对后续的测试提供了很大帮助。</p>
+<p><img src="./assets/api泄露.png" alt="API接口信息"></p>
+<h3 id="域名-Whois及备案信息采集"><a href="#域名-Whois及备案信息采集" class="headerlink" title="域名 Whois及备案信息采集"></a>域名 Whois及备案信息采集</h3><p>　　虽然现在已经有交易所注册域名时会使用域名注册商提供的服务，没有在Whois等域名信息备案网站上泄露公司或相关人员信息，但仍然有一些交易所会“本尊”亲自注册域名，这时利用Whois或其它的工具就可以找到该交易所域名的注册公司或相关人员的详细信息。而这些不起眼的信息对于后续的测试手段（如密码猜解，社会工程学攻击等）都会有很大帮助，可以极大提高其成功率。</p>
+<p>　　零时科技安全团队在对另一家交易所进行安全测试时，根据该交易所在Whois上留下的门户网站域名备案信息，找到了其注册公司，而后又根据注册公司信息找到了该公司经理（亦为股东之一）的手机号，QQ号，微信号和注册人邮箱的一部分。虽然因为授权原因并没有开展后续的社会工程学攻击等测试手段，但在真正需要使用特殊攻击手法时，这些信息无疑会极大提高成功率，能让测试方更从容，更轻松地撕开突破口，完成测试。</p>
+<p><img src="./assets/信息收集.png" alt="whois信息收集"></p>
+<p><img src="./assets/D1.png" alt="注册公司及人员信息"></p>
+<p><img src="./assets/D2.png" alt="注册公司及人员信息"></p>
+<h3 id="GitHub-源码泄露发现"><a href="#GitHub-源码泄露发现" class="headerlink" title="GitHub 源码泄露发现"></a>GitHub 源码泄露发现</h3><p>　　部分开发人员在编写代码时会习惯性地将源码上传到github等代码托管平台上，而这些源码，则是每个测试方都日思夜想要拿到的东西。毕竟，如果拿到了源码，就可以对其进行审计工作，直接找寻编写源码时留下的漏洞和疏忽。这会使得整个测试过程更加容易，减少了很大工作量。同时直接审计源码可以找到的问题和漏洞也会更加全面，具有针对性。</p>
+<p>　　同样地，对于交易所所使用的源码的找寻同样是信息收集中重要的一环，如下是在一家交易所网站上找到的/.git源码文件。零时科技安全团队通过审计源码，将审计过程中找到的，存放于注释中的敏感信息和其他审计所得与已发现的漏洞相互验证，成功地在测试中获得了该服务器的控制权，完成了这次测试。</p>
+<p><img src="./assets/源码.png" alt="交易所.git源码泄露"></p>
+<h3 id="敏感文件发现"><a href="#敏感文件发现" class="headerlink" title="敏感文件发现"></a>敏感文件发现</h3><p>　　敏感文件的种类很多，其中最经典也往往在测试过程中最能发挥作用的就是robots.txt，sitemap.xml等文件，一些敏感文件甚至可以成为测试的突破口。</p>
+<p>　　以下仅以两家交易所网站中robots.txt的部分信息为例。对于测试方来说，获得了这些信息就可以轻松地找到交易所网站中确实存在却不允许被轻易访问的敏感页面。如果这些页面存在某种规律或特点，甚至可以找到其使用的组件，CMS等其他信息，进而更有针对性地进行测试工作。</p>
+<p>　　而在针对该交易所的测试过程中，零时科技安全团队也确实使用了其中的信息，配合其他手法成功攻入了该交易所后台。</p>
+<p>　　<img src="./assets/h1.png" alt="敏感文件发现"></p>
+<p>　　<img src="./assets/h2.png" alt="敏感文件发现"></p>
+<hr>
+<p><strong>以上就是本期文章的全部内容。</strong></p>
+<p>　　<strong>信息收集对于测试方来说是测试的第一步，是测试的基础，那么对于交易所方来说，隐藏信息就是保障自身安全的第一步，做好自身信息的隐藏，就能将绝大多数的攻击扼杀在襁褓之中。</strong><br>　　<strong>互联网是一座黑暗森林， 每个攻击者都是带枪的猎人，像幽灵般潜行于林间，轻轻拨开挡路的树枝，竭力不让脚步发出一点儿声音，连呼吸都必须小心翼翼 。</strong></p>
+<p>　　<strong>下一篇文章将会讲述有关于社会工程学的更高级的情报收集，敬请关注。</strong></p>
+
+      
+    </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/交易所安全测试-社会工程/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          交易所安全测试-社会工程
+        
+      </div>
+    </a>
+  
+  
+    <a href="/Agora暗网BTC关联地址交易异常溯源分析/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Agora暗网BTC关联地址交易异常溯源分析</div>
+    </a>
+  
+</nav>
+
+  
+  <br>
+</article>
+
+
+
+
+</div>
+<div class="col-md-3 col-sm-3 blog-sidebar">
+  <!-- CATEGORIES START -->
+<h2 class="no-top-space">Categories</h2>
+
+<div class="widget-wrap">
+  <div class="widget">
+    <ul class="nav sidebar-categories margin-bottom-40">
+      
+	<li>
+	  <a href="/categories/Contract/">Contract (7)</a>
+	</li>
+      
+	<li>
+	  <a href="/categories/Contract/EOS/">EOS (6)</a>
+	</li>
+      
+	<li>
+	  <a href="/categories/Contract/Ether/">Ether (1)</a>
+	</li>
+      
+	<li>
+	  <a href="/categories/PoW/">PoW (1)</a>
+	</li>
+      
+	<li>
+	  <a href="/categories/Linux/">Linux (1)</a>
+	</li>
+      
+	<li>
+	  <a href="/categories/Contract/Ether/overflow/">overflow (1)</a>
+	</li>
+      
+	<li>
+	  <a href="/categories/Contract/EOS/Random/">Random (2)</a>
+	</li>
+      
+	<li>
+	  <a href="/categories/PoW/双花/">双花 (1)</a>
+	</li>
+      
+	<li>
+	  <a href="/categories/PoW/双花/51-攻击/">51%攻击 (1)</a>
+	</li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<!-- CATEGORIES END -->
+
+<!-- BEGIN BLOG TAGS -->
+<div class="blog-tags margin-bottom-20">
+  <h2>Tags</h2>
+  
+  <div class="widget-wrap">
+    <div class="widget">
+      
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/51-攻击/"><i class="fa fa-tags"></i>51%攻击</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/EOS/"><i class="fa fa-tags"></i>EOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/EOS-dApp-漏洞盘点/"><i class="fa fa-tags"></i>EOS dApp 漏洞盘点</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/以太坊/"><i class="fa fa-tags"></i>以太坊</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/传统安全/"><i class="fa fa-tags"></i>传统安全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/共识安全/"><i class="fa fa-tags"></i>共识安全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链/"><i class="fa fa-tags"></i>区块链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链安全/"><i class="fa fa-tags"></i>区块链安全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/双花攻击/"><i class="fa fa-tags"></i>双花攻击</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数字资产追踪/"><i class="fa fa-tags"></i>数字资产追踪</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/整数溢出/"><i class="fa fa-tags"></i>整数溢出</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/智能合约安全/"><i class="fa fa-tags"></i>智能合约安全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/比特币/"><i class="fa fa-tags"></i>比特币</a></li></ul>
+    </div>
+  </div>
+
+
+</div>
+<!-- END BLOG TAGS -->
+
+
+<!-- BEGIN FEATURED POSTS -->                            
+<h2>Featured Posts</h2>
+<div class="recent-news margin-bottom-10">
+  
+    
+      <div class="row margin-bottom-10">
+	<div class="col-md-4">
+	  <img src="https://blog.noneage.com/EOS-dApp-%E6%BC%8F%E6%B4%9E%E7%9B%98%E7%82%B9%E5%88%86%E6%9E%90-EOSBet-%E5%81%87%E5%85%85%E5%80%BC%E6%BC%8F%E6%B4%9E1/asset/eosbet.jpg" class="img-responsive ">
+	</div>
+	<div class="col-md-8">
+	  <h3><a href="https://blog.noneage.com/EOS-dApp-漏洞盘点分析-EOSBet-假充值漏洞1/">EOS dApp 漏洞盘点分析-EOSBet 假充值漏洞1</a></h3>
+	</div>                        
+      </div>
+    
+  
+    
+      <div class="row margin-bottom-10">
+	<div class="col-md-4">
+	  <img src="https://blog.noneage.com/EOS-dApp-%E6%BC%8F%E6%B4%9E%E7%9B%98%E7%82%B9-LuckyGo-inline-action-%E4%BA%A4%E6%98%93%E5%9B%9E%E6%BB%9A%E6%94%BB%E5%87%BB/asset/rollback.jpeg" class="img-responsive ">
+	</div>
+	<div class="col-md-8">
+	  <h3><a href="https://blog.noneage.com/EOS-dApp-漏洞盘点-LuckyGo-inline-action-交易回滚攻击/">EOS dApp 漏洞盘点- LuckyGo inline action 交易回滚攻击</a></h3>
+	</div>                        
+      </div>
+    
+  
+    
+      <div class="row margin-bottom-10">
+	<div class="col-md-4">
+	  <img src="https://blog.noneage.com/Agora%E6%9A%97%E7%BD%91BTC%E5%85%B3%E8%81%94%E5%9C%B0%E5%9D%80%E4%BA%A4%E6%98%93%E5%BC%82%E5%B8%B8%E6%BA%AF%E6%BA%90%E5%88%86%E6%9E%90/assets/agora.jpg" class="img-responsive ">
+	</div>
+	<div class="col-md-8">
+	  <h3><a href="https://blog.noneage.com/Agora暗网BTC关联地址交易异常溯源分析/">Agora暗网BTC关联地址交易异常溯源分析</a></h3>
+	</div>                        
+      </div>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <div class="row margin-bottom-10">
+	<div class="col-md-4">
+	  <img src="https://blog.noneage.com/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E6%BC%8F%E6%B4%9E%E5%AE%9E%E6%88%98%E8%AF%A6%E8%A7%A3%EF%BC%9A%E6%95%B4%E6%95%B0%E6%BA%A2%E5%87%BA%E6%94%BB%E5%87%BB/blog.png" class="img-responsive ">
+	</div>
+	<div class="col-md-8">
+	  <h3><a href="https://blog.noneage.com/以太坊智能合约漏洞实战详解：整数溢出攻击/">以太坊智能合约漏洞实战详解：整数溢出攻击</a></h3>
+	</div>                        
+      </div>
+    
+  
+    
+      <div class="row margin-bottom-10">
+	<div class="col-md-4">
+	  <img src="https://blog.noneage.com/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%85%B1%E8%AF%86%E5%AE%89%E5%85%A8%E2%80%9451-%E6%94%BB%E5%87%BB%E6%B5%85%E6%9E%90/thub.jpg" class="img-responsive ">
+	</div>
+	<div class="col-md-8">
+	  <h3><a href="https://blog.noneage.com/区块链共识安全—51-攻击浅析/">区块链共识安全：51% 攻击浅析</a></h3>
+	</div>                        
+      </div>
+    
+  
+    
+      <div class="row margin-bottom-10">
+	<div class="col-md-4">
+	  <img src="https://blog.noneage.com/EOS-dApp-%E6%BC%8F%E6%B4%9E%E7%9B%98%E7%82%B9%E5%88%86%E6%9E%90-EOSBet-%E5%81%87%E5%85%85%E5%80%BC%E6%BC%8F%E6%B4%9E1/asset/eosbet.jpg" class="img-responsive ">
+	</div>
+	<div class="col-md-8">
+	  <h3><a href="https://blog.noneage.com/EOS-dApp-漏洞盘点分析-EOSBet-假充值漏洞2/">EOS dApp 漏洞盘点分析-EOSBet 假充值漏洞2</a></h3>
+	</div>                        
+      </div>
+    
+  
+    
+      <div class="row margin-bottom-10">
+	<div class="col-md-4">
+	  <img src="https://blog.noneage.com/apt-apt-get-%E8%BF%9C%E7%A8%8B%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E6%B5%85%E6%9E%90-CVE-2019-3462/thub.jpg" class="img-responsive ">
+	</div>
+	<div class="col-md-8">
+	  <h3><a href="https://blog.noneage.com/apt-apt-get-远程代码执行漏洞浅析-CVE-2019-3462/">apt/apt-get 远程代码执行漏洞浅析(CVE-2019-3462)</a></h3>
+	</div>                        
+      </div>
+    
+  
+    
+      <div class="row margin-bottom-10">
+	<div class="col-md-4">
+	  <img src="https://blog.noneage.com/EOS-dApp-%E6%BC%8F%E6%B4%9E%E7%9B%98%E7%82%B9-EOSDice%E5%BC%B1%E9%9A%8F%E6%9C%BA%E6%95%B0%E6%BC%8F%E6%B4%9E1/thub.jpg" class="img-responsive ">
+	</div>
+	<div class="col-md-8">
+	  <h3><a href="https://blog.noneage.com/EOS-dApp-漏洞盘点-EOSDice弱随机数漏洞1/">EOS dApp 漏洞盘点-EOSDice弱随机数漏洞1</a></h3>
+	</div>                        
+      </div>
+    
+  
+    
+      <div class="row margin-bottom-10">
+	<div class="col-md-4">
+	  <img src="https://blog.noneage.com/EOS-dApp-%E6%BC%8F%E6%B4%9E%E7%9B%98%E7%82%B9-EOSDice%E5%BC%B1%E9%9A%8F%E6%9C%BA%E6%95%B0%E6%BC%8F%E6%B4%9E1/thub.jpg" class="img-responsive ">
+	</div>
+	<div class="col-md-8">
+	  <h3><a href="https://blog.noneage.com/EOS-dApp-漏洞盘点-EOSDice弱随机数漏洞2/">EOS dApp 漏洞盘点-EOSDice弱随机数漏洞2</a></h3>
+	</div>                        
+      </div>
+    
+  
+    
+  
+    
+  
+</div>
+<!-- END FEATURED POSTS -->                            
+
+</div>
+</div>
+
+  </section>
+</div>
+
+    <!-- BEGIN PRE-FOOTER -->
+    <div class="pre-footer">
+      <div class="container">
+        <div class="row">
+          <!-- BEGIN BOTTOM ABOUT BLOCK -->
+          <div class="col-md-4 col-sm-6 pre-footer-col">
+            <h2>About Us</h2>
+            <p>深圳零时科技有限公司，专注于区块链安全领域。 <br><br> 公司团队由从事安全技术研究和安全服务多年且经验丰富的高级网络安全专家组成，为客户提供专业的安全服务和安全解决方案。</p>
+          </div>
+          <!-- END BOTTOM ABOUT BLOCK -->
+
+          <!-- BEGIN BOTTOM CONTACTS -->
+          <div class="col-md-4 col-sm-6 pre-footer-col">
+            <h2>Contact</h2>
+            <address class="margin-bottom-40">
+              深圳市深南大道佳嘉豪商务大厦18A<br>
+              西安市丈八一路汇鑫国际IBC-A座906<br>
+              <br>
+              Phone: 150-2922-9543<br>
+              Email: <a href="mailto:support@noneage.com">support@noneage.com</a><br>
+            </address>
+          </div>
+          <!-- END BOTTOM CONTACTS -->
+
+	
+          <!-- BEGIN TWITTER BLOCK --> 
+	  <div class="col-md-2 col-sm-6 pre-footer-col">
+                <img src="/metronic/assets/corporate/img/wechat.png" width="160px" hight="160px">
+		<br>
+                <center>微信公账号</center>
+          </div>
+          <div class="col-md-2 col-sm-6 pre-footer-col">
+                <img src="/metronic/assets/corporate/img/zsxq.jpg" width="160px" hight="160px">
+		<br>
+                <center>知识星球</center>
+          </div>
+          <!--div class="col-md-4 col-sm-6 pre-footer-col">
+
+	  <a data-tweet-limit="1" class="twitter-timeline"
+	  href="https://twitter.com/computerlab_"
+	  data-widget-id="678830341331820544">Tweets by @computerlab_</a>
+
+	  <script>!function(d,s,id){var
+	  js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+          </div-->
+          <!-- END TWITTER BLOCK -->
+	
+        </div>
+      </div>
+    </div>
+    <!-- END PRE-FOOTER -->
+
+    <!-- BEGIN FOOTER -->
+    <div class="footer">
+      <div class="container">
+        <div class="row">
+          <!-- BEGIN COPYRIGHT -->
+          <div class="col-md-6 col-sm-6 padding-top-10">
+                  &copy; 2020 零时科技<br>
+ <a href="javascript:;">Privacy Policy</a> | <a href="javascript:;">Terms of Service</a>
+          </div>
+          <!-- END COPYRIGHT -->
+	  <!-- BEGIN SOCIAL -->
+<div class="col-md-6 col-sm-6">
+  <ul class="social-footer list-unstyled list-inline pull-right">
+    
+      <li><a href="https://github.com/noneage"><i class="fa fa-github"></i></a></li>
+    
+      <li><a href="https://twitter.com/NoneAgeOffical"><i class="fa fa-twitter"></i></a></li>
+    
+      <li><a href="/atom.xml"><i class="fa fa-rss"></i></a></li>
+    
+  </ul>  
+</div>
+<!-- END SOCIAL -->
+
+        </div>
+      </div>
+    </div>
+    <!-- END FOOTER -->
+
+  <!-- BEGIN CORE PLUGINS (REQUIRED FOR ALL PAGES) -->
+<!--[if lt IE 9]>
+<script src="/metronic/assets/plugins/respond.min.js"></script>
+<![endif]--> 
+<script src="/metronic/assets/plugins/jquery.min.js"></script>
+<script src="/metronic/assets/plugins/jquery-migrate.min.js"></script>
+<script src="/metronic/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="/metronic/assets/corporate/scripts/back-to-top.js"></script>
+<script src="/metronic/assets/plugins/owl.carousel/owl.carousel.min.js"></script>
+<script src="/metronic/assets/corporate/scripts/layout.js"></script>
+<script src="/js/wow.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        Layout.init();    
+        Layout.initOWL();
+        Layout.initTwitter();
+        Layout.initFixHeaderWithPreHeader(); /* Switch On Header Fixing (only if you have pre-header) */
+        Layout.initNavScrolling(); 
+	new WOW().init();
+    });
+</script>
+<!-- END CORE PLUGINS -->
+
+<!-- BEGIN PAGE-SPECIFIC PLUGINS --> 
+
+
+
+
+
+
+
+<!-- END PAGE-SPECIFIC PLUGINS --> 
+
+<!-- BEGIN INTEGRATIONS -->
+
+
+
+
+
+<!-- END INTEGRATIONS -->
+
+</body>
+</html>
