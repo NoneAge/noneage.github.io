@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://blog.noneage.com/"/>
-  <updated>2020-01-08T09:49:50.887Z</updated>
+  <updated>2020-01-08T10:02:51.473Z</updated>
   <id>https://blog.noneage.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://blog.noneage.com/%E4%BA%A4%E6%98%93%E6%89%80%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95-App%E5%AE%89%E5%85%A8%C2%B7%E4%B8%8B/"/>
     <id>https://blog.noneage.com/交易所安全测试-App安全·下/</id>
     <published>2020-01-08T09:48:57.000Z</published>
-    <updated>2020-01-08T09:49:50.887Z</updated>
+    <updated>2020-01-08T10:02:51.473Z</updated>
     
     <summary type="html">
     
@@ -38,6 +38,10 @@
     
     </summary>
     
+      <category term="交易所安全测试" scheme="https://blog.noneage.com/categories/%E4%BA%A4%E6%98%93%E6%89%80%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95/"/>
+    
+    
+      <category term="渗透测试" scheme="https://blog.noneage.com/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
     
   </entry>
   
@@ -46,7 +50,7 @@
     <link href="https://blog.noneage.com/%E4%BA%A4%E6%98%93%E6%89%80%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95-App%E5%AE%89%E5%85%A8%C2%B7%E4%B8%8A/"/>
     <id>https://blog.noneage.com/交易所安全测试-App安全·上/</id>
     <published>2020-01-08T09:48:52.000Z</published>
-    <updated>2020-01-08T09:49:31.250Z</updated>
+    <updated>2020-01-08T10:02:31.796Z</updated>
     
     <summary type="html">
     
@@ -63,6 +67,10 @@
     
     </summary>
     
+      <category term="交易所安全测试" scheme="https://blog.noneage.com/categories/%E4%BA%A4%E6%98%93%E6%89%80%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95/"/>
+    
+    
+      <category term="渗透测试" scheme="https://blog.noneage.com/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
     
   </entry>
   
@@ -71,7 +79,7 @@
     <link href="https://blog.noneage.com/%E4%BA%A4%E6%98%93%E6%89%80%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95-%E7%94%A8%E6%88%B7%E8%AE%A4%E8%AF%81/"/>
     <id>https://blog.noneage.com/交易所安全测试-用户认证/</id>
     <published>2020-01-08T09:47:42.000Z</published>
-    <updated>2020-01-08T09:48:13.623Z</updated>
+    <updated>2020-01-08T10:01:54.863Z</updated>
     
     <summary type="html">
     
@@ -87,6 +95,10 @@
     
     </summary>
     
+      <category term="交易所安全测试" scheme="https://blog.noneage.com/categories/%E4%BA%A4%E6%98%93%E6%89%80%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95/"/>
+    
+    
+      <category term="渗透测试" scheme="https://blog.noneage.com/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
     
   </entry>
   
@@ -95,7 +107,7 @@
     <link href="https://blog.noneage.com/%E4%BA%A4%E6%98%93%E6%89%80%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95-%E6%8E%A5%E5%8F%A3%E5%AE%89%E5%85%A8/"/>
     <id>https://blog.noneage.com/交易所安全测试-接口安全/</id>
     <published>2020-01-08T09:46:47.000Z</published>
-    <updated>2020-01-08T09:47:13.561Z</updated>
+    <updated>2020-01-08T10:01:25.358Z</updated>
     
     <summary type="html">
     
@@ -111,6 +123,10 @@
     
     </summary>
     
+      <category term="交易所安全测试" scheme="https://blog.noneage.com/categories/%E4%BA%A4%E6%98%93%E6%89%80%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95/"/>
+    
+    
+      <category term="渗透测试" scheme="https://blog.noneage.com/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
     
   </entry>
   
@@ -119,7 +135,7 @@
     <link href="https://blog.noneage.com/%E4%BA%A4%E6%98%93%E6%89%80%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95-%E5%AE%89%E5%85%A8%E9%85%8D%E7%BD%AE/"/>
     <id>https://blog.noneage.com/交易所安全测试-安全配置/</id>
     <published>2020-01-08T09:45:52.000Z</published>
-    <updated>2020-01-08T09:46:21.831Z</updated>
+    <updated>2020-01-08T10:00:37.137Z</updated>
     
     <summary type="html">
     
@@ -135,6 +151,10 @@
     
     </summary>
     
+      <category term="交易所安全测试" scheme="https://blog.noneage.com/categories/%E4%BA%A4%E6%98%93%E6%89%80%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95/"/>
+    
+    
+      <category term="渗透测试" scheme="https://blog.noneage.com/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
     
   </entry>
   
@@ -143,7 +163,7 @@
     <link href="https://blog.noneage.com/%E4%BA%A4%E6%98%93%E6%89%80%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95-%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA/"/>
     <id>https://blog.noneage.com/交易所安全测试-输入输出/</id>
     <published>2020-01-08T09:44:58.000Z</published>
-    <updated>2020-01-08T09:45:22.557Z</updated>
+    <updated>2020-01-08T10:00:06.167Z</updated>
     
     <summary type="html">
     
@@ -158,6 +178,10 @@
     
     </summary>
     
+      <category term="交易所安全测试" scheme="https://blog.noneage.com/categories/%E4%BA%A4%E6%98%93%E6%89%80%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95/"/>
+    
+    
+      <category term="渗透测试" scheme="https://blog.noneage.com/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
     
   </entry>
   
@@ -166,7 +190,7 @@
     <link href="https://blog.noneage.com/%E4%BA%A4%E6%98%93%E6%89%80%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95-%E4%BF%A1%E6%81%AF%E6%B3%84%E6%BC%8F/"/>
     <id>https://blog.noneage.com/交易所安全测试-信息泄漏/</id>
     <published>2020-01-08T09:43:29.000Z</published>
-    <updated>2020-01-08T09:44:02.655Z</updated>
+    <updated>2020-01-08T09:58:46.545Z</updated>
     
     <summary type="html">
     
@@ -181,6 +205,10 @@
     
     </summary>
     
+      <category term="交易所安全测试" scheme="https://blog.noneage.com/categories/%E4%BA%A4%E6%98%93%E6%89%80%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95/"/>
+    
+    
+      <category term="渗透测试" scheme="https://blog.noneage.com/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
     
   </entry>
   
@@ -189,7 +217,7 @@
     <link href="https://blog.noneage.com/%E4%BA%A4%E6%98%93%E6%89%80%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95-%E4%B8%9A%E5%8A%A1%E9%80%BB%E8%BE%91/"/>
     <id>https://blog.noneage.com/交易所安全测试-业务逻辑/</id>
     <published>2020-01-08T09:42:26.000Z</published>
-    <updated>2020-01-08T09:42:58.100Z</updated>
+    <updated>2020-01-08T09:57:43.783Z</updated>
     
     <summary type="html">
     
@@ -204,6 +232,10 @@
     
     </summary>
     
+      <category term="交易所安全测试" scheme="https://blog.noneage.com/categories/%E4%BA%A4%E6%98%93%E6%89%80%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95/"/>
+    
+    
+      <category term="渗透测试" scheme="https://blog.noneage.com/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
     
   </entry>
   
