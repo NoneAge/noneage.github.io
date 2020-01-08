@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>以太坊智能合约漏洞实战详解：整数溢出攻击 | 零时科技</title>
+
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <meta name="description" content="0x01 溢出攻击事件2018年4月22日，黑客对BEC智能合约发起攻击，凭空取出 157,896,044,618,658,100,000,000,000,000,000,000,000,000,000,000,000,000,000,000.792003956564819968 个BEC代币并在市场上进行抛售，BEC随即急剧贬值，价值几乎为0，该市场瞬间土崩瓦解。 2018年4月25日，SMT项">
+<meta name="keywords" content="区块链安全,智能合约安全,以太坊,整数溢出">
+<meta property="og:type" content="article">
+<meta property="og:title" content="以太坊智能合约漏洞实战详解：整数溢出攻击">
+<meta property="og:url" content="https://blog.noneage.com/以太坊智能合约漏洞实战详解：整数溢出攻击/index.html">
+<meta property="og:site_name" content="零时科技">
+<meta property="og:description" content="0x01 溢出攻击事件2018年4月22日，黑客对BEC智能合约发起攻击，凭空取出 157,896,044,618,658,100,000,000,000,000,000,000,000,000,000,000,000,000,000,000.792003956564819968 个BEC代币并在市场上进行抛售，BEC随即急剧贬值，价值几乎为0，该市场瞬间土崩瓦解。 2018年4月25日，SMT项">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://blog.noneage.com/以太坊智能合约漏洞实战详解：整数溢出攻击/1.png">
+<meta property="og:image" content="https://blog.noneage.com/以太坊智能合约漏洞实战详解：整数溢出攻击/2.png">
+<meta property="og:image" content="https://blog.noneage.com/以太坊智能合约漏洞实战详解：整数溢出攻击/3.png">
+<meta property="og:image" content="https://blog.noneage.com/以太坊智能合约漏洞实战详解：整数溢出攻击/4.png">
+<meta property="og:image" content="https://blog.noneage.com/以太坊智能合约漏洞实战详解：整数溢出攻击/5.png">
+<meta property="og:image" content="https://blog.noneage.com/以太坊智能合约漏洞实战详解：整数溢出攻击/10.png">
+<meta property="og:image" content="https://blog.noneage.com/以太坊智能合约漏洞实战详解：整数溢出攻击/6.png">
+<meta property="og:image" content="https://blog.noneage.com/以太坊智能合约漏洞实战详解：整数溢出攻击/7.png">
+<meta property="og:image" content="https://blog.noneage.com/以太坊智能合约漏洞实战详解：整数溢出攻击/8.png">
+<meta property="og:image" content="https://blog.noneage.com/以太坊智能合约漏洞实战详解：整数溢出攻击/11.png">
+<meta property="og:image" content="https://blog.noneage.com/以太坊智能合约漏洞实战详解：整数溢出攻击/12.png">
+<meta property="og:updated_time" content="2019-06-10T06:04:46.858Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="以太坊智能合约漏洞实战详解：整数溢出攻击">
+<meta name="twitter:description" content="0x01 溢出攻击事件2018年4月22日，黑客对BEC智能合约发起攻击，凭空取出 157,896,044,618,658,100,000,000,000,000,000,000,000,000,000,000,000,000,000,000.792003956564819968 个BEC代币并在市场上进行抛售，BEC随即急剧贬值，价值几乎为0，该市场瞬间土崩瓦解。 2018年4月25日，SMT项">
+<meta name="twitter:image" content="https://blog.noneage.com/以太坊智能合约漏洞实战详解：整数溢出攻击/1.png">
+  
+    <link rel="alternative" href="/atom.xml" title="零时科技" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+    
+  <meta content="{{ title }}" name="description">
+  <meta content="{{ title }}" name="keywords">
+  <meta content="{{ title }}" name="author">
+
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|PT+Sans+Narrow|Source+Sans+Pro:200,300,400,600,700,900&amp;subset=all" rel="stylesheet" type="text/css">
+
+  <!-- Global styles START -->   
+  <link rel="stylesheet" href="/metronic/assets/plugins/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/metronic/assets/plugins/bootstrap/css/bootstrap.min.css">
+  <!-- Global styles END --> 
+   
+  <!-- Page level plugin styles START -->
+  <link rel="stylesheet" href="/metronic/assets/pages/css/animate.css">
+  <link rel="stylesheet" href="/metronic/assets/plugins/owl.carousel/assets/owl.carousel.css">
+  <!-- Page level plugin styles END -->
+
+  <!-- Theme styles START -->
+  <link rel="stylesheet" href="/metronic/assets/pages/css/components.css">
+  <link rel="stylesheet" href="/metronic/assets/pages/css/slider.css">
+  <link rel="stylesheet" href="/metronic/assets/corporate/css/style.css">
+  <link rel="stylesheet" href="/metronic/assets/pages/css/portfolio.css">
+  <link rel="stylesheet" href="/metronic/assets/corporate/css/style-responsive.css">
+  <link rel="stylesheet" href="/metronic/assets/corporate/css/themes/red.css">
+  <link rel="stylesheet" href="/css/theme-styles.css">
+  <!-- Theme styles END -->
+</head>
+</html>
+<body class="corporate">
+  <!-- BEGIN TOP BAR -->
+<div class="pre-header">
+  <div class="container">
+    <div class="row">
+      <!-- BEGIN TOP BAR LEFT PART -->
+      <div class="col-md-6 col-sm-6 col-xs-9 additional-shop-info">
+	<ul class="list-unstyled list-inline">
+	  <li><i class="fa fa-phone"></i><span>150-2922-9543</span></li>
+	  <li><i class="fa fa-envelope-o"></i><span>support@noneage.com</span></li>
+	</ul>
+      </div>
+      <!-- END TOP BAR LEFT PART -->
+      <!-- BEGIN TOP BAR MENU -->
+      <div class="col-md-6 col-sm-6 col-xs-3 additional-nav">
+	<ul class="list-unstyled list-inline pull-right">
+	  <!--<li><a href="/login">Log In</a></li>-->
+	</ul>
+      </div>
+      <!-- END TOP BAR MENU -->
+    </div>
+  </div>        
+</div>
+<!-- END TOP BAR -->
+<!-- BEGIN HEADER -->
+<div class="header">
+  <div class="container">
+    <!--<a class="site-logo" href="/" id="logo">零时科技</a>-->
+
+    <a class="site-logo" href="/">
+      <img width="148" hight="42" src="/metronic/assets/corporate/img/logos/noneage_logo_gray.png" alt="noneage blog">
+    </a>
+
+    <a href="javascript:void(0);" class="mobi-toggler"><i class="fa fa-bars"></i></a>
+
+    <!-- BEGIN NAVIGATION -->
+    <div class="header-navigation pull-right font-transform-inherit">
+      <ul>
+	
+	<li class="">
+	  <a href="/">Home</a>
+	</li>
+	
+	<li class="">
+	  <a href="/archives/">Archives</a>
+	</li>
+	
+	<!-- BEGIN TOP SEARCH -->
+	<li class="menu-search">
+	  <span class="sep"></span>
+	  <i class="fa fa-search search-btn"></i>
+	  <div class="search-box">
+	    <form action="#">
+	      <div class="input-group">
+		<input type="text" placeholder="Search" class="form-control st-default-search-input">
+		<span class="input-group-btn">
+		  <button class="btn btn-primary" type="submit">Search</button>
+		</span>
+	      </div>
+	    </form>
+	  </div> 
+	</li>
+	<!-- END TOP SEARCH -->
+      </ul>
+    </div>
+    <!-- END NAVIGATION -->
+  </div>
+</div>
+<!-- Header END -->
+
+  <div class="container">
+  <ul class="breadcrumb">
+    <li><a href="/">Home</a></li>
+    <li><a href="">Blog</a></li>
+    <li class="active">Post</li>
+  </ul>
+  <section id="main">
+    
+    <h2 itemprop="name">
+      <a class="article-title" href="/以太坊智能合约漏洞实战详解：整数溢出攻击/">以太坊智能合约漏洞实战详解：整数溢出攻击</a>
+    </h2>
+
+
+    <div class="row">
+<div class="col-md-9 col-sm-9 blog-posts">
+<article id="post-以太坊智能合约漏洞实战详解：整数溢出攻击" class="article article-type-post blog-item" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      <ul class="blog-info">
+	<li><i class="fa fa-user"></i> Anonymous</li>
+	<li><i class="fa fa-calendar"></i>
+	  <time datetime="2019-01-03T10:03:59.000Z" itemprop="datePublished">2019/01/03</time>
+
+	</li>
+	<li class="hidden-xs"><i class="fa fa-comments"></i>
+	  <a href="https://blog.noneage.com/以太坊智能合约漏洞实战详解：整数溢出攻击/#disqus_thread" class="article-comment-link">Comments</a>
+	</li>
+	<li class="hidden-xs"><i class="fa fa-tags"></i> 
+	  
+  
+    <a href="/tags/区块链安全/" title="区块链安全">区块链安全</a>,
+  
+    <a href="/tags/智能合约安全/" title="智能合约安全">智能合约安全</a>,
+  
+    <a href="/tags/以太坊/" title="以太坊">以太坊</a>,
+  
+    <a href="/tags/整数溢出/" title="整数溢出">整数溢出</a>
+  
+
+
+	</li>
+      </ul>
+      
+  <div class="article-category">
+    
+    Categories:
+    <a class="article-category-link" href="/categories/Contract/">Contract</a>, <a class="article-category-link" href="/categories/Contract/Ether/">Ether</a>, <a class="article-category-link" href="/categories/Contract/Ether/overflow/">overflow</a>
+  </div>
+  <br>
+
+
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="0x01-溢出攻击事件"><a href="#0x01-溢出攻击事件" class="headerlink" title="0x01 溢出攻击事件"></a>0x01 溢出攻击事件</h2><p>2018年4月22日，黑客对BEC智能合约发起攻击，凭空取出</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">57,896,044,618,658,100,000,000,000,000,000,000,000,000,000,000,000,000,000,000.792003956564819968</span><br></pre></td></tr></table></figure>
+<p>个BEC代币并在市场上进行抛售，BEC随即急剧贬值，价值几乎为0，该市场瞬间土崩瓦解。</p>
+<p>2018年4月25日，SMT项目方发现其交易存在异常，黑客利用其函数漏洞创造了</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">65,133,050,195,990,400,000,000,000,000,000,000,000,000,000,000,000,000,000,000 + 50,659,039,041,325,800,000,000,000,000,000,000,000,000,000,000,000,000,000,000</span><br></pre></td></tr></table></figure>
+<p>的SMT币，火币Pro随即暂停了所有币种的充值提取业务。</p>
+<p>2018年12月27日，以太坊智能合约Fountain(FNT)出现整数溢出漏洞，黑客利用其函数漏洞创造了</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2 + 115792089237316195423570985008687907853269984665640564039457584007913129639935</span><br></pre></td></tr></table></figure>
+<p>的SMT币。</p>
+<p>让我们一起以沉痛的心情缅怀以上一夜归零的代币。</p>
+<h2 id="0x02-整数溢出简介"><a href="#0x02-整数溢出简介" class="headerlink" title="0x02 整数溢出简介"></a>0x02 整数溢出简介</h2><h3 id="整数溢出原理"><a href="#整数溢出原理" class="headerlink" title="整数溢出原理"></a>整数溢出原理</h3><p>通常来说，在编程语言里由算数问题导致的整数溢出漏洞屡见不鲜，在区块链的世界里，智能合约的Solidity语言中也存在整数溢出问题，整数溢出一般分为又分为上溢和下溢，在智能合约中出现整数溢出的类型包括三种：</p>
+<ul>
+<li>乘法溢出</li>
+<li>加法溢出</li>
+<li>减法溢出</li>
+</ul>
+<p>在Solidity语言中，变量支持的整数类型步长以8递增，支持从uint8到uint256，以及int8到int256。例如，一个 uint8类型 ，只能存储在范围 0到2^8-1，也就是[0,255] 的数字，一个 uint256类型 ，只能存储在范围 0到2^256-1的数字。</p>
+<p>在以太坊虚拟机（EVM）中为整数指定固定大小的数据类型，而且是无符号的，这意味着在以太坊虚拟机中一个整型变量只能有一定范围的数字表示，不能超过这个制定的范围。</p>
+<p>如果试图存储 256这个数字 到一个 uint8类型中，这个256数字最终将变成 0，所以整数溢出的原理其实很简单，为了说明整数溢出原理，这里以 8 (uint8)位无符整型为例，8 位整型可表示的范围为 <code>[0, 255]</code>，<code>255</code> 在内存中存储按位存储的形式为下图所示：</p>
+<p><img src="1.png" alt="img"></p>
+<p>8 位无符整数 255 在内存中占据了 8bit 位置，若再加上 1 整体会因为进位而导致整体翻转为 0，最后导致原有的 8bit 表示的整数变为 0。</p>
+<p>上图即说明了智能合约中整数上溢的原理，同样整数下溢也是一样，如 <code>(uint8)0 - 1 = (uint8)255</code>。</p>
+<p>溢出简单实例演示，这里以uint256类型演示：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">pragma solidity ^<span class="number">0.4</span><span class="number">.25</span>;</span><br><span class="line"></span><br><span class="line">contract POC&#123;</span><br><span class="line">    <span class="comment">//加法溢出</span></span><br><span class="line">    <span class="comment">//如果uint256 类型的变量达到了它的最大值(2**256 - 1)，如果在加上一个大于0的值便会变成0</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">add_overflow</span>(<span class="params"></span>) <span class="title">returns</span> (<span class="params">uint256 _overflow</span>) </span>&#123;</span><br><span class="line">        uint256 max = <span class="number">2</span>**<span class="number">256</span> - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">return</span> max + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="comment">//减法溢出</span></span><br><span class="line">	<span class="comment">//如果uint256 类型的变量达到了它的最小值(0)，如果在减去一个小于0的值便会变成2**256-1(uin256类型的最大值)</span></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">sub_underflow</span>(<span class="params"></span>) <span class="title">returns</span> (<span class="params">uint256 _underflow</span>) </span>&#123;</span><br><span class="line">    	uint256 min = <span class="number">0</span>;</span><br><span class="line">    	<span class="keyword">return</span> min - <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//乘法溢出</span></span><br><span class="line">	<span class="comment">//如果uint256 类型的变量超过了它的最大值(2**256 - 1)，最后它的值就会回绕变成0</span></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">mul_overflow</span>(<span class="params"></span>) <span class="title">returns</span> (<span class="params">uint256 _underflow</span>) </span>&#123;</span><br><span class="line">    	uint256 mul = <span class="number">2</span>**<span class="number">255</span>;</span><br><span class="line">    	<span class="keyword">return</span> mul * <span class="number">2</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>将上述代码在编辑器上编译，部署。这里为了方便起见使用：<a href="http://remix.ethereum.org/#optimize=false&amp;version=soljson-v0.4.25+commit.59dbf8f1.js编辑器。" target="_blank" rel="noopener">http://remix.ethereum.org/#optimize=false&amp;version=soljson-v0.4.25+commit.59dbf8f1.js编辑器。</a></p>
+<h3 id="加法溢出"><a href="#加法溢出" class="headerlink" title="加法溢出"></a>加法溢出</h3><p>这里将uint256 类型的max变量设置为它的最大值<code>(2**256 - 1)</code>，然后在给max变量加上1，导致上溢，最终结果max的值输出为0。</p>
+<p><img src="./2.png" alt=""></p>
+<h3 id="减法溢出"><a href="#减法溢出" class="headerlink" title="减法溢出"></a>减法溢出</h3><p>这里将uint256 类型的变量min设置为它的最小值(0)，如果在减去一个1，导致下溢，最后min的值便会变成一个很大的值，即<code>2**256-1</code>，也就是uin256类型的最大值。</p>
+<p><img src="./3.png" alt=""></p>
+<h3 id="乘法溢出"><a href="#乘法溢出" class="headerlink" title="乘法溢出"></a>乘法溢出</h3><p>这里将uint256 类型的mul变量设置为<code>2**255</code>，然后在给mul变量乘以2，变成<code>2**256</code>，超过最大值导致上溢，最终结果mul的值输出为0。</p>
+<p><img src="./4.png" alt=""></p>
+<p>通过例子我们可以看到uint256当取最大整数值，上溢之后直接返回值为0，uint256当取0下溢之后直接返回值为2^256-1。这是solidity中整数溢出场景的常规情况，其他类型如uint8等也是一样的原理。</p>
+<h3 id="整数溢出防护"><a href="#整数溢出防护" class="headerlink" title="整数溢出防护"></a>整数溢出防护</h3><p>为了防止整数溢出的发生，一方面可以在算术逻辑前后进行验证，另一方面可以直接使用 OpenZeppelin 维护的一套智能合约函数库中的 SafeMath 来处理算术逻辑。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">pragma solidity ^<span class="number">0.4</span><span class="number">.25</span>;</span><br><span class="line"></span><br><span class="line">library SafeMath &#123;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">mul</span>(<span class="params">uint256 a, uint256 b</span>) <span class="title">internal</span> <span class="title">constant</span> <span class="title">returns</span> (<span class="params">uint256</span>) </span>&#123;</span><br><span class="line">    uint256 c = a * b;</span><br><span class="line">    assert(a == <span class="number">0</span> || c / a == b);</span><br><span class="line">    <span class="keyword">return</span> c;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">div</span>(<span class="params">uint256 a, uint256 b</span>) <span class="title">internal</span> <span class="title">constant</span> <span class="title">returns</span> (<span class="params">uint256</span>) </span>&#123;</span><br><span class="line">    uint256 c = a / b;</span><br><span class="line">    <span class="keyword">return</span> c;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">sub</span>(<span class="params">uint256 a, uint256 b</span>) <span class="title">internal</span> <span class="title">constant</span> <span class="title">returns</span> (<span class="params">uint256</span>) </span>&#123;</span><br><span class="line">    assert(b &lt;= a);</span><br><span class="line">    <span class="keyword">return</span> a - b;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">uint256 a, uint256 b</span>) <span class="title">internal</span> <span class="title">constant</span> <span class="title">returns</span> (<span class="params">uint256</span>) </span>&#123;</span><br><span class="line">    uint256 c = a + b;</span><br><span class="line">    assert(c &gt;= a);</span><br><span class="line">    <span class="keyword">return</span> c;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">contract POC&#123;</span><br><span class="line">    using SafeMath <span class="keyword">for</span> uint256;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//加法溢出</span></span><br><span class="line">    <span class="comment">//如果uint256 类型的变量达到了它的最大值(2**256 - 1)，如果在加上一个大于0的值便会变成0</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">add_overflow</span>(<span class="params"></span>) <span class="title">returns</span> (<span class="params">uint256 _overflow</span>) </span>&#123;</span><br><span class="line">        uint256 max = <span class="number">2</span>**<span class="number">256</span> - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">return</span> max.add(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="comment">//减法溢出</span></span><br><span class="line">	<span class="comment">//如果uint256 类型的变量达到了它的最小值(0)，如果在减去一个小于0的值便会变成2**256-1(uin256类型的最大值)</span></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">sub_underflow</span>(<span class="params"></span>) <span class="title">returns</span> (<span class="params">uint256 _underflow</span>) </span>&#123;</span><br><span class="line">    	uint256 min = <span class="number">0</span>;</span><br><span class="line">    	<span class="keyword">return</span> min.sub(<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//乘法溢出</span></span><br><span class="line">	<span class="comment">//如果uint256 类型的变量超过了它的最大值(2**256 - 1)，最后它的值就会回绕变成0</span></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">mul_overflow</span>(<span class="params"></span>) <span class="title">returns</span> (<span class="params">uint256 _underflow</span>) </span>&#123;</span><br><span class="line">    	uint256 mul = <span class="number">2</span>**<span class="number">255</span>;</span><br><span class="line">    	<span class="keyword">return</span> mul.mul(<span class="number">2</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用Safemath方法后，不再产生溢出漏洞：</p>
+<p><img src="./5.png" alt=""></p>
+<p>通过使用Safemath封装的加法，减法，乘法接口，使用assert方法进行判断，可以避免产生溢出漏洞。</p>
+<h2 id="0x03-案例分析"><a href="#0x03-案例分析" class="headerlink" title="0x03 案例分析"></a>0x03 案例分析</h2><p>而上面的例子介绍了原理。下面我们将通过实际案例介绍溢出漏洞是如何在生产环境中进行恶意攻击的。</p>
+<h3 id="案例一-BEC"><a href="#案例一-BEC" class="headerlink" title="案例一 BEC"></a>案例一 BEC</h3><h4 id="漏洞原理分析"><a href="#漏洞原理分析" class="headerlink" title="漏洞原理分析"></a>漏洞原理分析</h4><p>BEC合约地址：0xC5d105E63711398aF9bbff092d4B6769C82F793D</p>
+<p>在etherscan上的地址为：<a href="https://etherscan.io/address/0xc5d105e63711398af9bbff092d4b6769c82f793d#code" target="_blank" rel="noopener">https://etherscan.io/address/0xc5d105e63711398af9bbff092d4b6769c82f793d#code</a></p>
+<p>存在溢出漏洞的合约代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">batchTransfer</span>(<span class="params">address[] _receivers, uint256 _value</span>) <span class="title">public</span> <span class="title">whenNotPaused</span> <span class="title">returns</span> (<span class="params">bool</span>) </span>&#123;</span><br><span class="line">    uint cnt = _receivers.length;</span><br><span class="line">    uint256 amount = uint256(cnt) * _value; <span class="comment">//溢出点，这里存在整数溢出</span></span><br><span class="line">    <span class="built_in">require</span>(cnt &gt; <span class="number">0</span> &amp;&amp; cnt &lt;= <span class="number">20</span>);</span><br><span class="line">    <span class="built_in">require</span>(_value &gt; <span class="number">0</span> &amp;&amp; balances[msg.sender] &gt;= amount);</span><br><span class="line"></span><br><span class="line">    balances[msg.sender] = balances[msg.sender].sub(amount);</span><br><span class="line">    <span class="keyword">for</span> (uint i = <span class="number">0</span>; i &lt; cnt; i++) &#123;</span><br><span class="line">        balances[_receivers[i]] = balances[_receivers[i]].add(_value);</span><br><span class="line">        Transfer(msg.sender, _receivers[i], _value);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到<code>batchTransfer</code>函数中，有如下代码<code>uint256 amount = uint256(cnt) * _value</code>，没有使用safemath library，直接使用乘法运算符，产生整数溢出的地方就在合理。</p>
+<p>其中变量<code>cnt</code>为转账的地址数量，可以通过外界的用户输入<code>_receivers</code>进行控制，<code>_value</code>为单地址转账金额，也可以直接进行控制。</p>
+<p>外界可以控制<code>_receivers</code>和<code>_value</code>的数值，那么我们就可以控制<code>amount</code>变量的值，让其产生非预期的值，导致向上溢出。如<code>cnt = _receivers.length = 2</code>，<code>_value = 2**255</code>，这样<code>amount = uint256(cnt) * _value = 2**255*2</code>超过uint256表示的最大值，导致溢出，最终<code>amount = 0</code>。</p>
+<p>紧接着下面有一句对<code>amount</code>进行条件检查的代码<code>require(_value &gt; 0 &amp;&amp; balances[msg.sender] &gt;= amount);</code>其中<code>balances[msg.sender]</code>代表当前用户的余额，<code>amount</code>代表要转的总币数。代码意思为确保单用户转账金额大于0，并且当前用户拥有的代币余额大于等于本次转账的总币数才进行后续转账操作。因为<code>amount</code>溢出后可以为一个很小的数字或者0（这里变成0），很容易绕过<code>balances[msg.sender] &gt;= amount</code>的检查代码。从而产生巨大<code>_value</code>数额（这里为<code>2**255</code>）的恶意转账。</p>
+<p>实际攻击的恶意转账记录：<a href="https://etherscan.io/tx/0xad89ff16fd1ebe3a0a7cf4ed282302c06626c1af33221ebe0d3a470aba4a660f" target="_blank" rel="noopener">https://etherscan.io/tx/0xad89ff16fd1ebe3a0a7cf4ed282302c06626c1af33221ebe0d3a470aba4a660f</a></p>
+<p>从转账记录中可以看到分别给两个账户转了很大一笔代币。</p>
+<p><img src="./10.png" alt=""></p>
+<h4 id="攻击模拟演示"><a href="#攻击模拟演示" class="headerlink" title="攻击模拟演示"></a>攻击模拟演示</h4><p>为了真实模拟黑客攻击过程，下面进行演示。</p>
+<p>实战操作视频链接：<a href="https://v.qq.com/x/page/w082246wiuo.html" target="_blank" rel="noopener">https://v.qq.com/x/page/w082246wiuo.html</a></p>
+<p>下面我们将BEC合约的代码在remix编辑器编译，部署，然后调用batchTransfer函数。</p>
+<p><img src="./6.png" alt=""></p>
+<p>转入两个需要转账的账户：[“0x14723a09acff6d2a60dcdf7aa4aff308fddc160c”,”0x4b0897b0513fdc7c541b6d9d7e929c4e5364d2db”]</p>
+<p>然后转入单用户转账金额57896044618658097711785492504343953926634992332820282019728792003956564819968（<code>2**255</code>）</p>
+<p>最后转账后，转出账户：0xca35b7d915458ef540ade6068dfe2f44e8fa733c代币不变，转入的两个账户余额都变为很大的值。</p>
+<p><img src="./7.png" alt=""></p>
+<h4 id="漏洞修复"><a href="#漏洞修复" class="headerlink" title="漏洞修复"></a>漏洞修复</h4><p>在代码中可以看到，在语句<code>balances[msg.sender] = balances[msg.sender].sub(amount)</code>和<code>balances[_receivers[i]] = balances[_receivers[i]].add(_value)</code>中，调用Safemath库中的安全函数来完成加减操作，所以这里在进行乘法运算时也需要使用Safemath来运算，将代码<code>uint256 amount = uint256(cnt) * _value</code>改为<code>uint256 amount = uint256(cnt).mul(_value);</code>，如图所示，使用Safemath库之后，攻击的转账失败。</p>
+<p><img src="./8.png" alt=""></p>
+<h3 id="案例二-SMT"><a href="#案例二-SMT" class="headerlink" title="案例二 SMT"></a>案例二 SMT</h3><p>BEC合约地址：0x55F93985431Fc9304077687a35A1BA103dC1e081</p>
+<p>在etherscan上的地址为：<a href="https://etherscan.io/address/0x55f93985431fc9304077687a35a1ba103dc1e081#code" target="_blank" rel="noopener">https://etherscan.io/address/0x55f93985431fc9304077687a35a1ba103dc1e081#code</a></p>
+<p>存在溢出漏洞的合约代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">transferProxy</span>(<span class="params">address _from, address _to, uint256 _value, uint256 _feeSmt,</span></span></span><br><span class="line"><span class="function"><span class="params">        uint8 _v,bytes32 _r, bytes32 _s</span>) <span class="title">public</span> <span class="title">transferAllowed</span>(<span class="params">_from</span>) <span class="title">returns</span> (<span class="params">bool</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(balances[_from] &lt; _feeSmt + _value) revert(); <span class="comment">//溢出点，这里存在整数溢出</span></span><br><span class="line"></span><br><span class="line">        uint256 nonce = nonces[_from];</span><br><span class="line">        bytes32 h = keccak256(_from,_to,_value,_feeSmt,nonce);</span><br><span class="line">        <span class="keyword">if</span>(_from != ecrecover(h,_v,_r,_s)) revert();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(balances[_to] + _value &lt; balances[_to]</span><br><span class="line">            || balances[msg.sender] + _feeSmt &lt; balances[msg.sender]) revert();</span><br><span class="line">        balances[_to] += _value;</span><br><span class="line">        Transfer(_from, _to, _value);</span><br><span class="line"></span><br><span class="line">        balances[msg.sender] += _feeSmt;</span><br><span class="line">        Transfer(_from, msg.sender, _feeSmt);</span><br><span class="line"></span><br><span class="line">        balances[_from] -= _value + _feeSmt;</span><br><span class="line">        nonces[_from] = nonce + <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>从代码中可以看到这里的加、减、乘都没有使用安全处理，直接进行算数运算，而且<code>_from, _to, _value, _feeSmt</code>都可控，导致在<code>if(balances[_from] &lt; _feeSmt + _value) revert();</code>这里， 将<code>_value, _feeSmt</code>构造为相加刚好溢出为0的值</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> 8fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff _value</span><br><span class="line"> +</span><br><span class="line"> 7000000000000000000000000000000000000000000000000000000000000001 _feeSmt</span><br><span class="line"> =</span><br><span class="line">10000000000000000000000000000000000000000000000000000000000000000</span><br></pre></td></tr></table></figure>
+<p>如上面的<code>value</code>和<code>feeSmt</code>相加然后去掉最高位，结果为0，小于<code>balances[_frome]</code>，使得<code>if</code>条件不成立，绕过判断。</p>
+<p>通过攻击的交易信息中可以看到，黑客构造的内容：</p>
+<p><img src="./11.png" alt=""></p>
+<p>上图可以看出，<code>_value</code>和<code>_feeSmt</code>相加刚好溢出为0，绕过<code>if</code>条件判断，从而给<code>to</code>账户和<code>msg.sender</code>账户分别转入<code>value</code>和<code>feeSmt</code>的代币。</p>
+<h3 id="案例三-FNT"><a href="#案例三-FNT" class="headerlink" title="案例三 FNT"></a>案例三 FNT</h3><p>FNT合约地址：0x82Cf44bE0768A3600c4BDeA58607783A3A7c51AE</p>
+<p>在etherscan上的地址为：<a href="https://etherscan.io/address/0x82cf44be0768a3600c4bdea58607783a3a7c51ae#code" target="_blank" rel="noopener">https://etherscan.io/address/0x82cf44be0768a3600c4bdea58607783a3a7c51ae#code</a></p>
+<p>此漏洞跟案例一的BEC漏洞，如出一辙。存在溢出漏洞的合约代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">batchTransfers</span> (<span class="params">address[] receivers, uint256[] amounts</span>) <span class="title">public</span> <span class="title">whenRunning</span> <span class="title">returns</span> (<span class="params">bool</span>) </span>&#123;</span><br><span class="line">		uint receiveLength = receivers.length;</span><br><span class="line">		<span class="built_in">require</span>(receiveLength == amounts.length);</span><br><span class="line"></span><br><span class="line">		uint receiverCount = <span class="number">0</span>;</span><br><span class="line">		uint256 totalAmount = <span class="number">0</span>;</span><br><span class="line">		uint i;</span><br><span class="line">		address r;</span><br><span class="line">		<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; receiveLength; i ++) &#123;</span><br><span class="line">			r = receivers[i];</span><br><span class="line">			<span class="keyword">if</span> (r == address(<span class="number">0</span>) || r == owner) <span class="keyword">continue</span>;</span><br><span class="line">			receiverCount ++;</span><br><span class="line">			totalAmount += amounts[i]; <span class="comment">////溢出点，这里存在整数溢出，计算需要转出的全部数额</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">require</span>(totalAmount &gt; <span class="number">0</span>);</span><br><span class="line">		<span class="built_in">require</span>(canPay(msg.sender, totalAmount)); <span class="comment">//这里判断msg.sender的余额大于totalAmount</span></span><br><span class="line"></span><br><span class="line">		wallets[msg.sender] -= totalAmount;</span><br><span class="line">		uint256 amount;</span><br><span class="line">		<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; receiveLength; i++) &#123;</span><br><span class="line">			r = receivers[i];</span><br><span class="line">			<span class="keyword">if</span> (r == address(<span class="number">0</span>) || r == owner) <span class="keyword">continue</span>;</span><br><span class="line">			amount = amounts[i];</span><br><span class="line">			<span class="keyword">if</span> (amount == <span class="number">0</span>) <span class="keyword">continue</span>;</span><br><span class="line">			wallets[r] = wallets[r].add(amount);</span><br><span class="line">			emit Transfer(msg.sender, r, amount); <span class="comment">//逐一转账</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>从上述代码中可以看到变量<code>receivers</code>和<code>amounts</code>可控，首先计算需要转出的全部数额<code>totalAmount</code>，然后判断<code>totalAmount</code>大于0，并且<code>msg.senders</code>的余额大于<code>totalAmount</code>的数值，最后从<code>receivers</code>和<code>amounts</code>中一一转账。</p>
+<p>这里的溢出点在计算转账总额的地方<code>totalAmount += amounts[i];</code>，当<code>amount</code>的元素相加产生溢出时，可以构造溢出时为一个很小的值比如1或者2，构造的<code>amounts</code>如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">2                                                                               amount[1]</span><br><span class="line">+</span><br><span class="line">115792089237316195423570985008687907853269984665640564039457584007913129639935  amount[2]</span><br><span class="line">=</span><br><span class="line">1                                                                             totalAmount</span><br></pre></td></tr></table></figure>
+<p>所以通过上面的构造，我们成功绕过了判断，最后给两个账户分别转了2个代币和115792089237316195423570985008687907853269984665640564039457584007913129639935个（<code>2*256-1</code>）的代币。</p>
+<p>通过攻击的交易信息可以看到结果跟我们分析的一致：</p>
+<p><img src="./12.png" alt=""></p>
+<h2 id="0x04-总结"><a href="#0x04-总结" class="headerlink" title="0x04 总结"></a>0x04 总结</h2><p>我们在开发智能合约时，开发人员如果不加注意的话，只要没有检查用户输入内容，而且最终将输入带入执行计算，导致计算结果数字超出存储它们的数据类型允许的范围，那么此智能合约的输入内容就可以被用来组织攻击，导致安全漏洞。</p>
+<p>所以为了防止整数溢出的发生，一方面可以在算术逻辑前后进行验证，另一方面可以直接使用 OpenZeppelin 维护的一套智能合约函数库中的 SafeMath 来处理算术逻辑。</p>
+<p>很多项目在合约中已经导入了SafeMath库，但是因为开发者的粗心大意导致部分运算忘记添加本来已经using的safemath库，出现溢出漏洞。所以除了开发者自己提高安全开发意识之外，找专业的安全团队对合约进行全面的审计也是非常必要的。</p>
+
+      
+    </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/区块链共识安全—51-攻击浅析/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          区块链共识安全：51% 攻击浅析
+        
+      </div>
+    </a>
+  
+  
+    <a href="/EOS-dApp-漏洞盘点分析-EOSBet-假充值漏洞1/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">EOS dApp 漏洞盘点分析-EOSBet 假充值漏洞1</div>
+    </a>
+  
+</nav>
+
+  
+  <br>
+</article>
+
+
+
+
+</div>
+<div class="col-md-3 col-sm-3 blog-sidebar">
+  <!-- CATEGORIES START -->
+<h2 class="no-top-space">Categories</h2>
+
+<div class="widget-wrap">
+  <div class="widget">
+    <ul class="nav sidebar-categories margin-bottom-40">
+      
+	<li>
+	  <a href="/categories/Contract/">Contract (7)</a>
+	</li>
+      
+	<li>
+	  <a href="/categories/Contract/EOS/">EOS (6)</a>
+	</li>
+      
+	<li>
+	  <a href="/categories/Contract/Ether/">Ether (1)</a>
+	</li>
+      
+	<li>
+	  <a href="/categories/PoW/">PoW (1)</a>
+	</li>
+      
+	<li>
+	  <a href="/categories/Linux/">Linux (1)</a>
+	</li>
+      
+	<li>
+	  <a href="/categories/Contract/EOS/Random/">Random (2)</a>
+	</li>
+      
+	<li>
+	  <a href="/categories/Contract/Ether/overflow/">overflow (1)</a>
+	</li>
+      
+	<li>
+	  <a href="/categories/PoW/双花/">双花 (1)</a>
+	</li>
+      
+	<li>
+	  <a href="/categories/PoW/双花/51-攻击/">51%攻击 (1)</a>
+	</li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<!-- CATEGORIES END -->
+
+<!-- BEGIN BLOG TAGS -->
+<div class="blog-tags margin-bottom-20">
+  <h2>Tags</h2>
+  
+  <div class="widget-wrap">
+    <div class="widget">
+      
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/51-攻击/"><i class="fa fa-tags"></i>51%攻击</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/EOS/"><i class="fa fa-tags"></i>EOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/EOS-dApp-漏洞盘点/"><i class="fa fa-tags"></i>EOS dApp 漏洞盘点</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/以太坊/"><i class="fa fa-tags"></i>以太坊</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/传统安全/"><i class="fa fa-tags"></i>传统安全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/共识安全/"><i class="fa fa-tags"></i>共识安全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链/"><i class="fa fa-tags"></i>区块链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链安全/"><i class="fa fa-tags"></i>区块链安全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/双花攻击/"><i class="fa fa-tags"></i>双花攻击</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数字资产追踪/"><i class="fa fa-tags"></i>数字资产追踪</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/整数溢出/"><i class="fa fa-tags"></i>整数溢出</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/智能合约安全/"><i class="fa fa-tags"></i>智能合约安全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/比特币/"><i class="fa fa-tags"></i>比特币</a></li></ul>
+    </div>
+  </div>
+
+
+</div>
+<!-- END BLOG TAGS -->
+
+
+<!-- BEGIN FEATURED POSTS -->                            
+<h2>Featured Posts</h2>
+<div class="recent-news margin-bottom-10">
+  
+    
+      <div class="row margin-bottom-10">
+	<div class="col-md-4">
+	  <img src="https://blog.noneage.com/EOS-dApp-%E6%BC%8F%E6%B4%9E%E7%9B%98%E7%82%B9%E5%88%86%E6%9E%90-EOSBet-%E5%81%87%E5%85%85%E5%80%BC%E6%BC%8F%E6%B4%9E1/asset/eosbet.jpg" class="img-responsive ">
+	</div>
+	<div class="col-md-8">
+	  <h3><a href="https://blog.noneage.com/EOS-dApp-漏洞盘点分析-EOSBet-假充值漏洞1/">EOS dApp 漏洞盘点分析-EOSBet 假充值漏洞1</a></h3>
+	</div>                        
+      </div>
+    
+  
+    
+      <div class="row margin-bottom-10">
+	<div class="col-md-4">
+	  <img src="https://blog.noneage.com/EOS-dApp-%E6%BC%8F%E6%B4%9E%E7%9B%98%E7%82%B9-LuckyGo-inline-action-%E4%BA%A4%E6%98%93%E5%9B%9E%E6%BB%9A%E6%94%BB%E5%87%BB/asset/rollback.jpeg" class="img-responsive ">
+	</div>
+	<div class="col-md-8">
+	  <h3><a href="https://blog.noneage.com/EOS-dApp-漏洞盘点-LuckyGo-inline-action-交易回滚攻击/">EOS dApp 漏洞盘点- LuckyGo inline action 交易回滚攻击</a></h3>
+	</div>                        
+      </div>
+    
+  
+    
+      <div class="row margin-bottom-10">
+	<div class="col-md-4">
+	  <img src="https://blog.noneage.com/Agora%E6%9A%97%E7%BD%91BTC%E5%85%B3%E8%81%94%E5%9C%B0%E5%9D%80%E4%BA%A4%E6%98%93%E5%BC%82%E5%B8%B8%E6%BA%AF%E6%BA%90%E5%88%86%E6%9E%90/assets/agora.jpg" class="img-responsive ">
+	</div>
+	<div class="col-md-8">
+	  <h3><a href="https://blog.noneage.com/Agora暗网BTC关联地址交易异常溯源分析/">Agora暗网BTC关联地址交易异常溯源分析</a></h3>
+	</div>                        
+      </div>
+    
+  
+    
+      <div class="row margin-bottom-10">
+	<div class="col-md-4">
+	  <img src="https://blog.noneage.com/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E6%BC%8F%E6%B4%9E%E5%AE%9E%E6%88%98%E8%AF%A6%E8%A7%A3%EF%BC%9A%E6%95%B4%E6%95%B0%E6%BA%A2%E5%87%BA%E6%94%BB%E5%87%BB/blog.png" class="img-responsive ">
+	</div>
+	<div class="col-md-8">
+	  <h3><a href="https://blog.noneage.com/以太坊智能合约漏洞实战详解：整数溢出攻击/">以太坊智能合约漏洞实战详解：整数溢出攻击</a></h3>
+	</div>                        
+      </div>
+    
+  
+    
+      <div class="row margin-bottom-10">
+	<div class="col-md-4">
+	  <img src="https://blog.noneage.com/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%85%B1%E8%AF%86%E5%AE%89%E5%85%A8%E2%80%9451-%E6%94%BB%E5%87%BB%E6%B5%85%E6%9E%90/thub.jpg" class="img-responsive ">
+	</div>
+	<div class="col-md-8">
+	  <h3><a href="https://blog.noneage.com/区块链共识安全—51-攻击浅析/">区块链共识安全：51% 攻击浅析</a></h3>
+	</div>                        
+      </div>
+    
+  
+    
+      <div class="row margin-bottom-10">
+	<div class="col-md-4">
+	  <img src="https://blog.noneage.com/apt-apt-get-%E8%BF%9C%E7%A8%8B%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E6%B5%85%E6%9E%90-CVE-2019-3462/thub.jpg" class="img-responsive ">
+	</div>
+	<div class="col-md-8">
+	  <h3><a href="https://blog.noneage.com/apt-apt-get-远程代码执行漏洞浅析-CVE-2019-3462/">apt/apt-get 远程代码执行漏洞浅析(CVE-2019-3462)</a></h3>
+	</div>                        
+      </div>
+    
+  
+    
+      <div class="row margin-bottom-10">
+	<div class="col-md-4">
+	  <img src="https://blog.noneage.com/EOS-dApp-%E6%BC%8F%E6%B4%9E%E7%9B%98%E7%82%B9-EOSDice%E5%BC%B1%E9%9A%8F%E6%9C%BA%E6%95%B0%E6%BC%8F%E6%B4%9E1/thub.jpg" class="img-responsive ">
+	</div>
+	<div class="col-md-8">
+	  <h3><a href="https://blog.noneage.com/EOS-dApp-漏洞盘点-EOSDice弱随机数漏洞1/">EOS dApp 漏洞盘点-EOSDice弱随机数漏洞1</a></h3>
+	</div>                        
+      </div>
+    
+  
+    
+      <div class="row margin-bottom-10">
+	<div class="col-md-4">
+	  <img src="https://blog.noneage.com/EOS-dApp-%E6%BC%8F%E6%B4%9E%E7%9B%98%E7%82%B9%E5%88%86%E6%9E%90-EOSBet-%E5%81%87%E5%85%85%E5%80%BC%E6%BC%8F%E6%B4%9E1/asset/eosbet.jpg" class="img-responsive ">
+	</div>
+	<div class="col-md-8">
+	  <h3><a href="https://blog.noneage.com/EOS-dApp-漏洞盘点分析-EOSBet-假充值漏洞2/">EOS dApp 漏洞盘点分析-EOSBet 假充值漏洞2</a></h3>
+	</div>                        
+      </div>
+    
+  
+    
+      <div class="row margin-bottom-10">
+	<div class="col-md-4">
+	  <img src="https://blog.noneage.com/EOS-dApp-%E6%BC%8F%E6%B4%9E%E7%9B%98%E7%82%B9-EOSDice%E5%BC%B1%E9%9A%8F%E6%9C%BA%E6%95%B0%E6%BC%8F%E6%B4%9E1/thub.jpg" class="img-responsive ">
+	</div>
+	<div class="col-md-8">
+	  <h3><a href="https://blog.noneage.com/EOS-dApp-漏洞盘点-EOSDice弱随机数漏洞2/">EOS dApp 漏洞盘点-EOSDice弱随机数漏洞2</a></h3>
+	</div>                        
+      </div>
+    
+  
+</div>
+<!-- END FEATURED POSTS -->                            
+
+</div>
+</div>
+
+  </section>
+</div>
+
+    <!-- BEGIN PRE-FOOTER -->
+    <div class="pre-footer">
+      <div class="container">
+        <div class="row">
+          <!-- BEGIN BOTTOM ABOUT BLOCK -->
+          <div class="col-md-4 col-sm-6 pre-footer-col">
+            <h2>About Us</h2>
+            <p>深圳零时科技有限公司，专注于区块链安全领域。 <br><br> 公司团队由从事安全技术研究和安全服务多年且经验丰富的高级网络安全专家组成，为客户提供专业的安全服务和安全解决方案。</p>
+          </div>
+          <!-- END BOTTOM ABOUT BLOCK -->
+
+          <!-- BEGIN BOTTOM CONTACTS -->
+          <div class="col-md-4 col-sm-6 pre-footer-col">
+            <h2>Contact</h2>
+            <address class="margin-bottom-40">
+              深圳市深南大道佳嘉豪商务大厦18A<br>
+              西安市丈八一路汇鑫国际IBC-A座906<br>
+              <br>
+              Phone: 150-2922-9543<br>
+              Email: <a href="mailto:support@noneage.com">support@noneage.com</a><br>
+            </address>
+          </div>
+          <!-- END BOTTOM CONTACTS -->
+
+	
+          <!-- BEGIN TWITTER BLOCK --> 
+	  <div class="col-md-2 col-sm-6 pre-footer-col">
+                <img src="/metronic/assets/corporate/img/wechat.png" width="160px" hight="160px">
+		<br>
+                <center>微信公账号</center>
+          </div>
+          <div class="col-md-2 col-sm-6 pre-footer-col">
+                <img src="/metronic/assets/corporate/img/zsxq.jpg" width="160px" hight="160px">
+		<br>
+                <center>知识星球</center>
+          </div>
+          <!--div class="col-md-4 col-sm-6 pre-footer-col">
+
+	  <a data-tweet-limit="1" class="twitter-timeline"
+	  href="https://twitter.com/computerlab_"
+	  data-widget-id="678830341331820544">Tweets by @computerlab_</a>
+
+	  <script>!function(d,s,id){var
+	  js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+          </div-->
+          <!-- END TWITTER BLOCK -->
+	
+        </div>
+      </div>
+    </div>
+    <!-- END PRE-FOOTER -->
+
+    <!-- BEGIN FOOTER -->
+    <div class="footer">
+      <div class="container">
+        <div class="row">
+          <!-- BEGIN COPYRIGHT -->
+          <div class="col-md-6 col-sm-6 padding-top-10">
+                  &copy; 2020 零时科技<br>
+ <a href="javascript:;">Privacy Policy</a> | <a href="javascript:;">Terms of Service</a>
+          </div>
+          <!-- END COPYRIGHT -->
+	  <!-- BEGIN SOCIAL -->
+<div class="col-md-6 col-sm-6">
+  <ul class="social-footer list-unstyled list-inline pull-right">
+    
+      <li><a href="https://github.com/noneage"><i class="fa fa-github"></i></a></li>
+    
+      <li><a href="https://twitter.com/NoneAgeOffical"><i class="fa fa-twitter"></i></a></li>
+    
+      <li><a href="/atom.xml"><i class="fa fa-rss"></i></a></li>
+    
+  </ul>  
+</div>
+<!-- END SOCIAL -->
+
+        </div>
+      </div>
+    </div>
+    <!-- END FOOTER -->
+
+  <!-- BEGIN CORE PLUGINS (REQUIRED FOR ALL PAGES) -->
+<!--[if lt IE 9]>
+<script src="/metronic/assets/plugins/respond.min.js"></script>
+<![endif]--> 
+<script src="/metronic/assets/plugins/jquery.min.js"></script>
+<script src="/metronic/assets/plugins/jquery-migrate.min.js"></script>
+<script src="/metronic/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="/metronic/assets/corporate/scripts/back-to-top.js"></script>
+<script src="/metronic/assets/plugins/owl.carousel/owl.carousel.min.js"></script>
+<script src="/metronic/assets/corporate/scripts/layout.js"></script>
+<script src="/js/wow.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        Layout.init();    
+        Layout.initOWL();
+        Layout.initTwitter();
+        Layout.initFixHeaderWithPreHeader(); /* Switch On Header Fixing (only if you have pre-header) */
+        Layout.initNavScrolling(); 
+	new WOW().init();
+    });
+</script>
+<!-- END CORE PLUGINS -->
+
+<!-- BEGIN PAGE-SPECIFIC PLUGINS --> 
+
+
+
+
+
+
+
+<!-- END PAGE-SPECIFIC PLUGINS --> 
+
+<!-- BEGIN INTEGRATIONS -->
+
+
+
+
+
+<!-- END INTEGRATIONS -->
+
+</body>
+</html>

