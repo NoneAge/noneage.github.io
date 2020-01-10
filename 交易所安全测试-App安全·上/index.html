@@ -7,28 +7,31 @@
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
-  <title>交易所安全测试-接口安全 | 零时科技</title>
+  <title>交易所安全测试-App安全·上 | 零时科技</title>
 
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-  <meta name="description" content="0x06 接口安全一 、概述API，英文全称Application Programming Interface，翻译为“应用程序编程接口”。是一些预先定义的函数，目的是提供应用程序与开发人员基于某软件或硬件得以访问一组例程的能力，而又无需访问源码，或理解内部工作机制的细节。 由于其快速、有效和安全、可靠 的特性，被开发人员广泛的使用。但如果接口本身没有做好安全防护或者调用时没有做好频率限制，都会导">
+  <meta name="description" content="0x08App安全·上篇一、概述如今，随着人们使用手机，平板等移动端设备上网的时间与频率增加，移动app的发展也是愈来愈迅速。各大交易所在与用户交互的这方面，除了网页浏览以外，也就是移动端的app了。 尽管app时下相当流行，但其安全性却一直没有得到足够的关注。在app安全的领域上，大部分厂商都做得比较初级，很多用户也不具备相对应的安全意识。由此，app也就变成了恶意攻击者的一个有效突破口。 零时">
 <meta name="keywords" content="渗透测试">
 <meta property="og:type" content="article">
-<meta property="og:title" content="交易所安全测试-接口安全">
-<meta property="og:url" content="https://blog.noneage.com/交易所安全测试-接口安全/index.html">
+<meta property="og:title" content="交易所安全测试-App安全·上">
+<meta property="og:url" content="https://blog.noneage.com/交易所安全测试-App安全·上/index.html">
 <meta property="og:site_name" content="零时科技">
-<meta property="og:description" content="0x06 接口安全一 、概述API，英文全称Application Programming Interface，翻译为“应用程序编程接口”。是一些预先定义的函数，目的是提供应用程序与开发人员基于某软件或硬件得以访问一组例程的能力，而又无需访问源码，或理解内部工作机制的细节。 由于其快速、有效和安全、可靠 的特性，被开发人员广泛的使用。但如果接口本身没有做好安全防护或者调用时没有做好频率限制，都会导">
+<meta property="og:description" content="0x08App安全·上篇一、概述如今，随着人们使用手机，平板等移动端设备上网的时间与频率增加，移动app的发展也是愈来愈迅速。各大交易所在与用户交互的这方面，除了网页浏览以外，也就是移动端的app了。 尽管app时下相当流行，但其安全性却一直没有得到足够的关注。在app安全的领域上，大部分厂商都做得比较初级，很多用户也不具备相对应的安全意识。由此，app也就变成了恶意攻击者的一个有效突破口。 零时">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://blog.noneage.com/交易所安全测试-接口安全/assets/jingdu.png">
-<meta property="og:image" content="https://blog.noneage.com/交易所安全测试-接口安全/assets/email.png">
-<meta property="og:image" content="https://blog.noneage.com/交易所安全测试-接口安全/assets/sms.png">
-<meta property="og:image" content="https://blog.noneage.com/交易所安全测试-接口安全/assets/shuadan.png">
-<meta property="og:updated_time" content="2020-01-08T10:01:25.358Z">
+<meta property="og:image" content="https://blog.noneage.com/交易所安全测试-App安全·上/assets/1.png">
+<meta property="og:image" content="https://blog.noneage.com/交易所安全测试-App安全·上/assets/2.png">
+<meta property="og:image" content="https://blog.noneage.com/交易所安全测试-App安全·上/assets/3.png">
+<meta property="og:image" content="https://blog.noneage.com/交易所安全测试-App安全·上/assets/4.png">
+<meta property="og:image" content="https://blog.noneage.com/交易所安全测试-App安全·上/assets/5.jpg">
+<meta property="og:image" content="https://blog.noneage.com/交易所安全测试-App安全·上/assets/6.png">
+<meta property="og:image" content="https://blog.noneage.com/交易所安全测试-App安全·上/assets/7.png">
+<meta property="og:updated_time" content="2020-01-10T02:17:19.448Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="交易所安全测试-接口安全">
-<meta name="twitter:description" content="0x06 接口安全一 、概述API，英文全称Application Programming Interface，翻译为“应用程序编程接口”。是一些预先定义的函数，目的是提供应用程序与开发人员基于某软件或硬件得以访问一组例程的能力，而又无需访问源码，或理解内部工作机制的细节。 由于其快速、有效和安全、可靠 的特性，被开发人员广泛的使用。但如果接口本身没有做好安全防护或者调用时没有做好频率限制，都会导">
-<meta name="twitter:image" content="https://blog.noneage.com/交易所安全测试-接口安全/assets/jingdu.png">
+<meta name="twitter:title" content="交易所安全测试-App安全·上">
+<meta name="twitter:description" content="0x08App安全·上篇一、概述如今，随着人们使用手机，平板等移动端设备上网的时间与频率增加，移动app的发展也是愈来愈迅速。各大交易所在与用户交互的这方面，除了网页浏览以外，也就是移动端的app了。 尽管app时下相当流行，但其安全性却一直没有得到足够的关注。在app安全的领域上，大部分厂商都做得比较初级，很多用户也不具备相对应的安全意识。由此，app也就变成了恶意攻击者的一个有效突破口。 零时">
+<meta name="twitter:image" content="https://blog.noneage.com/交易所安全测试-App安全·上/assets/1.png">
   
     <link rel="alternative" href="/atom.xml" title="零时科技" type="application/atom+xml">
   
@@ -142,13 +145,13 @@
   <section id="main">
     
     <h2 itemprop="name">
-      <a class="article-title" href="/交易所安全测试-接口安全/">交易所安全测试-接口安全</a>
+      <a class="article-title" href="/交易所安全测试-App安全·上/">交易所安全测试-App安全·上</a>
     </h2>
 
 
     <div class="row">
 <div class="col-md-9 col-sm-9 blog-posts">
-<article id="post-交易所安全测试-接口安全" class="article article-type-post blog-item" itemscope="" itemprop="blogPost">
+<article id="post-交易所安全测试-App安全·上" class="article article-type-post blog-item" itemscope="" itemprop="blogPost">
   <div class="article-meta">
   </div>
   <div class="article-inner">
@@ -158,11 +161,11 @@
       <ul class="blog-info">
 	<li><i class="fa fa-user"></i> Anonymous</li>
 	<li><i class="fa fa-calendar"></i>
-	  <time datetime="2020-01-08T09:46:47.000Z" itemprop="datePublished">2020/01/08</time>
+	  <time datetime="2020-01-08T09:48:52.000Z" itemprop="datePublished">2020/01/08</time>
 
 	</li>
 	<li class="hidden-xs"><i class="fa fa-comments"></i>
-	  <a href="https://blog.noneage.com/交易所安全测试-接口安全/#disqus_thread" class="article-comment-link">Comments</a>
+	  <a href="https://blog.noneage.com/交易所安全测试-App安全·上/#disqus_thread" class="article-comment-link">Comments</a>
 	</li>
 	<li class="hidden-xs"><i class="fa fa-tags"></i> 
 	  
@@ -188,62 +191,67 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="0x06-接口安全"><a href="#0x06-接口安全" class="headerlink" title="0x06 接口安全"></a>0x06 接口安全</h1><h2 id="一-、概述"><a href="#一-、概述" class="headerlink" title="一 、概述"></a>一 、概述</h2><p>API，英文全称Application Programming Interface，翻译为“应用程序编程接口”。是一些预先定义的函数，目的是提供应用程序与开发人员基于某软件或硬件得以访问一组例程的能力，而又无需访问源码，或理解内部工作机制的细节。 由于其快速、有效和安全、可靠 的特性，被开发人员广泛的使用。但如果接口本身没有做好安全防护或者调用时没有做好频率限制，都会导致问题的出现。</p>
-<p>零时科技安全团队在经过大量对交易所的测试后，总结出了针对各类接口的测试列表，如RPC、Web Service、RESTful API和GraphQL等。下面案例分析中将会详细讲述有关交易所存在的接口安全问题。</p>
-<h2 id="二、测试列表"><a href="#二、测试列表" class="headerlink" title="二、测试列表"></a>二、测试列表</h2><p><strong>接口安全</strong></p>
+        <h1 id="0x08App安全·上篇"><a href="#0x08App安全·上篇" class="headerlink" title="0x08App安全·上篇"></a>0x08App安全·上篇</h1><h2 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h2><p>如今，随着人们使用手机，平板等移动端设备上网的时间与频率增加，移动app的发展也是愈来愈迅速。各大交易所在与用户交互的这方面，除了网页浏览以外，也就是移动端的app了。</p>
+<p>尽管app时下相当流行，但其安全性却一直没有得到足够的关注。在app安全的领域上，大部分厂商都做得比较初级，很多用户也不具备相对应的安全意识。由此，app也就变成了恶意攻击者的一个有效突破口。</p>
+<p>零时科技安全团队在经过大量对app进行的安全测试之后，总结出了一份相对完整有效的测试列表，建议各大交易所以此自查，防患于未然。</p>
+<h2 id="二、测试列表"><a href="#二、测试列表" class="headerlink" title="二、测试列表"></a>二、测试列表</h2><p><strong>App安全</strong></p>
 <ul>
-<li>RPC安全测试<ul>
-<li>RMI远程命令执行</li>
-<li>CORS</li>
+<li>App 运行时虚拟机监测</li>
+<li>App 运行时root监测</li>
+<li>App数据备份检测</li>
+<li>代码反编译检测</li>
+<li>敏感权限使用</li>
+<li>敏感信息泄露</li>
+<li>拒绝服务测试</li>
+<li>目录穿越安全测试</li>
+<li>App 缓存安全检测</li>
+<li>接口安全测试</li>
+<li>弱加密安全测试</li>
 </ul>
-</li>
-<li>Web Service安全测试<ul>
-<li>SQL注入</li>
-<li>信息泄露</li>
-</ul>
-</li>
-<li>GraphQL安全测试<ul>
-<li>未授权访问</li>
-<li>信息泄露</li>
-<li>GraPhQL SQL注入</li>
-<li>嵌套查询DOS</li>
-</ul>
-</li>
-<li>RESTful API安全测试</li>
-<li>数值精度测试</li>
-<li>接口频率限制测试<ul>
-<li>邮箱验证接口</li>
-<li>短信验证接口</li>
-<li>批量刷单</li>
-</ul>
-</li>
-<li>超时检测</li>
-</ul>
-<h2 id="三、案例分析"><a href="#三、案例分析" class="headerlink" title="三、案例分析"></a>三、案例分析</h2><h3 id="数值精度测试"><a href="#数值精度测试" class="headerlink" title="数值精度测试"></a>数值精度测试</h3><p>零时科技安全团队对某交易所进行测试时发现，其默认小数点精度为4位小数点，大于4位小数的会往前四舍五入，比如0.9999系统会默认为1，由于此精度问题，导致可被攻击者薅羊毛。</p>
-<p>攻击者可以开两个账号，一个挂单（无需认证即可挂单），一个出售，配合无限薅羊毛。</p>
-<p>虽然单次获取收益很小，但是无限制的话，收益还是不错的。</p>
-<p>通过大量无限制刷单，可以套取系统中心账号代币，攻击者可以出售代币套现跑路。</p>
-<p>如下图所示，批量下单0.9999个代币，当15分钟后，系统默认取消交易，然后钱包中心钱包将返回1个代币给卖家，获取额为代币：</p>
-<p><img src="./assets/jingdu.png" alt="精度刷取代币"></p>
-<p>建议严格按照4位小数精度进行算术运算，并对下单频率以及数量进行限制。</p>
-<h3 id="接口频率限制测试"><a href="#接口频率限制测试" class="headerlink" title="接口频率限制测试"></a>接口频率限制测试</h3><h4 id="邮箱验证接口"><a href="#邮箱验证接口" class="headerlink" title="邮箱验证接口"></a>邮箱验证接口</h4><p>在进行身份甄别时，邮箱验证码因其免费的缘故被广泛使用。但是在开发过程中没有正确的限制接口频率，就可能被利用进行电子邮箱炸弹攻击。电子邮件炸弹是最古老的匿名攻击之一，通过设置一台机器不断的大量的向同一地址发送电子邮件，攻击者能够耗尽接受者网络的宽带。 </p>
-<p><img src="./assets/email.png" alt="Email Bomb"></p>
-<h4 id="短信验证接口"><a href="#短信验证接口" class="headerlink" title="短信验证接口"></a>短信验证接口</h4><p>与上述所说的邮箱验证相同，因为短信验证的方便快捷以及安全性较高也被广泛的用于身份验证中。与邮箱验证不同的是，短信验证码的条数是需要按照数量付费的。如果未进行合理频率限制会导致：</p>
+<h2 id="三、案例分析"><a href="#三、案例分析" class="headerlink" title="三、案例分析"></a>三、案例分析</h2><h3 id="App-运行时虚拟机监测"><a href="#App-运行时虚拟机监测" class="headerlink" title="App 运行时虚拟机监测"></a>App 运行时虚拟机监测</h3><p>零时科技在对某交易所进行发现，该交易app未进行虚拟机运行检测，攻击者在虚拟机中安装运行该app，即可在虚拟机中截取并操作数据包或进行其他有害操作。</p>
+<p><img src="./assets/1.png" alt="VM DETECT"></p>
+<h3 id="App数据备份检测"><a href="#App数据备份检测" class="headerlink" title="App数据备份检测"></a>App数据备份检测</h3><p>零时科技安全团队在对某交易所app进行安全测试时，发现该交易所并未对app进行数据备份检测，安卓AndroidManifest.xml文件中android:allowBackup为true，当这个标志被设置成true或不设置该标志位时，应用程序数据可以备份和恢复，adb调试备份允许恶意攻击者复制应用程序数据。</p>
+<p>零时科技安全团队在对某交易所app进行安全测试时，发现该交易所并未对app进行数据备份检测，其AndroidManifest.xml文件中android: allowBackup为true，存在数据任意备份漏洞。</p>
+<p><img src="./assets/2.png" alt="Source Code"></p>
+<p>连接手机，然后输入以下备份命令，会出现一个对话窗，输入备份密码即可：</p>
+<blockquote>
+<p>adb backup -nosystem -noshared -apk -f com.xxx.wallet com.xxx.wallet</p>
+</blockquote>
+<p><img src="./assets/3.png" alt="BACKUP"></p>
+<p>连接到另一台手机或root的本机，输入下列命令，弹出对话框，输入备份时的密码即可恢复数据</p>
+<blockquote>
+<p>adb restore com</p>
+</blockquote>
+<p>如果用户账号密码保存在本地，则恢复到另一台root的手机后，可以看到各种敏感信息。</p>
+<p>零时科技安全团队建议设置AndroidManifest.xml的android:allowBackup标志为false。</p>
+<h3 id="代码反编译检测"><a href="#代码反编译检测" class="headerlink" title="代码反编译检测"></a>代码反编译检测</h3><p>若app的apk文件可被反编译，就有可能导致源代码信息泄露，攻击者也可对其进行代码审计以找出可能存在隐患的攻击点。</p>
+<p>零时科技安全团队对某交易所app进行安全测试时，通过检测apk文件是否通过加固，代码是否通过加密或者混淆，是否可以通过反编译攻击等方面对该app进行测试。发现该apk文件可被反编译，反编译后可以看到java源代码，导致源代码信息泄露。（通过jadx-gui或其他反编译工具可直接操作apk，查看java源代码。）</p>
+<p><img src="./assets/4.png" alt="Decompile"></p>
+<p>零时科技安全团队建议，可使用专业加固工具对apk进行加壳处理。</p>
+<h3 id="敏感权限使用"><a href="#敏感权限使用" class="headerlink" title="敏感权限使用"></a>敏感权限使用</h3><p>目前很多系统在app请求权限这一方面上都不甚敏感，这也是如今移动端并不那么安全的成因之一。很多app都会请求一些敏感的权限，有的甚至会直接绕过，不向用户请求就直接自行取得了权限。而这些app有可能对交易所和用户都产生足够的恶意影响。</p>
+<p>零时科技安全团队在对某交易所app进行安全测试时，检测APP程序中是否存在敏感权限的使用，发现确实存在敏感权限使用漏洞。</p>
+<p><img src="./assets/5.jpg" alt="Authority control"> </p>
+<p>敏感权限如下：</p>
 <ul>
-<li><p>持续给手机号发送垃圾短信，造成极差的用户体验。</p>
+<li><p>android.permision.WRITE_EXTERNAL_STORAGE 允许应用写入外部存储</p>
 </li>
-<li><p>对于公司来说，发送短信一般借助第三方运营商，每条短信需要支付费用，如果一天被刷几十万条，一天造成上万的亏损。</p>
+<li><p>ndroid.permission.READ_PHONE_STATE 允许访问电话状态、设备信息</p>
+</li>
+<li><p>ndroid.permission.CAMERA 允许访问摄像头</p>
+</li>
+<li><p>android.permission.GET_TASKS 允许获取系统应用列表</p>
+</li>
+<li><p>android.permission.MOUNT_UNMOUNT_FILESYSTEMS 允许挂载、反挂载外部文件系统 </p>
 </li>
 </ul>
-<p><img src="./assets/sms.png" alt="SMS Bomb"></p>
-<h4 id="批量刷单"><a href="#批量刷单" class="headerlink" title="批量刷单"></a>批量刷单</h4><p>零时科技安全团队在对某交易所进行安全测试时发现，可不停购买数量为负数的代币，然后确认付款，在商家后台无法进行确认收款，可以批量生产垃圾订单，而且会导致短信炸弹。请求如下：</p>
-<p><img src="./assets/shuadan.png" alt="批量刷单"></p>
-<p>此漏洞是由于可以接受非法参数以及未作频率限制共同造成。不仅影响到业务流程的正常运转，而且耗费了大量的短信资源。这种类似于薅羊毛的技术单次看来危害较小，所以经常会被忽略，但如果被无限制的利用，羊毛出在羊身上，终有秃噜皮的一天。</p>
+<p>零时科技安全团队建议禁用不需要的敏感权限。</p>
+<h3 id="敏感信息泄露"><a href="#敏感信息泄露" class="headerlink" title="敏感信息泄露"></a>敏感信息泄露</h3><p>敏感信息泄露危害极大，如泄露出测试/管理员数据，参数注释信息等。但它又是一种危害虽大却又较容易避免的漏洞，只要开发人员多加注重安全意识即可避免大部分问题。</p>
+<p>零时科技安全团队在对某交易所进行安全测试时，查找其 app 程序文件中是否存在敏感信息泄露（如源码中，备份文件中，xml 资源文件中等），发现确实存在敏感信息泄露漏洞，源码中泄露了微信公众号 appid 和 secretkey：</p>
+<p><img src="./assets/6.png" alt="Decompile Code"></p>
+<p>获取token：</p>
+<p><img src="./assets/7.png" alt="Wechat"></p>
 <hr>
-<p><strong>君子生非异也，善假于物也。</strong></p>
-<p><strong>诚然，善于调用各种接口会大幅提高开发效率，但在使用前应充分了解接口的运作机制，进行合理的调用限制。</strong></p>
-<p><strong>免得猛虎下山，反噬其主。</strong>  </p>
-<p><em>注：以上所有测试均已经过相关交易所授权，请勿自行非法测试。</em></p>
+<p><em>鉴于文章内容长度限制，本期内容将分为上、下篇，顺序放送。</em></p>
 
       
     </div>
@@ -252,19 +260,19 @@
     
 <nav id="article-nav">
   
-    <a href="/交易所安全测试-用户认证/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/交易所安全测试-App安全·下/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          交易所安全测试-用户认证
+          交易所安全测试-App安全·下
         
       </div>
     </a>
   
   
-    <a href="/交易所安全测试-安全配置/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/交易所安全测试-用户认证/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">交易所安全测试-安全配置</div>
+      <div class="article-nav-title">交易所安全测试-用户认证</div>
     </a>
   
 </nav>
